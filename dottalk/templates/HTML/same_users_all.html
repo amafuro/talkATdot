@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>同じキャンパスユーザー</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<!--ページの見出し-->
+<div class="top_wrap">
+     <div class="top_bg bg-success">
+        <div class="top_inner text-white d-flex justify-content-center">
+          <h1>キャンパス内のプログラマー</h1>
+        </div>
+     </div>
+</div>
+<!--フッターメニュー-->
+<div class="container-fluid">
+<nav class="navbar navbar-expand navbar-dark bg-secondary fixed-bottom">
+  <div class="collapse navbar-collapse justify-content-end" id="navmenu1">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#">Top</a>
+        <a class="nav-item nav-link" href="{% url 'edit'%}">マイページ</a>
+        <a class="nav-item nav-link" href="{% url 'footprint' %}">あしあと</a>
+        <a class="nav-item nav-link" href="{% url 'Logout' %}">ログアウト</a>
+        <!--検索フォームの設置、言語に対して検索を行う用-->
+        {% csrf_token %}
+        <form action="same_users_all" method="get" class="form-inline">
+            <div class="input-group">
+                <input name="query" value="{{ request.GET.query }}" type="text" class="form-control" placeholder="プログラミング言語を入力">
+                <button type="submit" class="btn btn-success">検索</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</nav>
+</div>
+<!--一致する他ユーザーのアカウントを並べる-->
+<div class="container-fluid">
+    <div class="row justify-content-around">
+        {% for Account in object_list %}
+         <div class="col-4 text-center">
+             {% if Account.account_image %}
+             <img src="{{ Account.account_image.url }}" alt=""></br>
+             {% else %}
+             <img src="/media/default_profile_pic.png" alt="" class="img-fluid"></br>
+             {% endif %}
+             <big><a href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big></br>
+             任せて！：{{ Account.good_prog_language }}</br>
+             教えて～：{{ Account.bad_prog_language }}
+         </div>
+        {% empty %}
+        <p>まだ他にユーザーはいないようです</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

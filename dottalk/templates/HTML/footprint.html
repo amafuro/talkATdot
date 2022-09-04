@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="utf-8" />
+    <title>あしあとリスト</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand navbar-dark bg-success ">
+  <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
+    <!--部屋名(アカウント名)-->
+    <a href="#" class="navbar-brand"><h3>あしあとリスト</h3></a>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#">Top</a>
+        <a class="nav-item nav-link" href="#tag1">Bottom</a>
+        <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid bg-secondary text-white">
+    <div class="justify-content-around ">
+            <p>返信が来ているかチェックしよう</p>
+    </div>
+</div>
+<!--一致する他ユーザーのアカウントを並べる-->
+<div class="container">
+    <div class="row">
+        {% for Account in object_list %}
+         <div class="col-4">
+            <big><a href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big></br>
+                任せて！：{{ Account.good_prog_language }}</br>
+                教えて～：{{ Account.bad_prog_language }}
+         </div>
+        {% empty %}
+        <p>まだメッセージを送っていないようです</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+<a name = "tag1"></a>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Talk room with {{ Account.nickname }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<!--ナビバーの設置、画面上部に表示しつづける-->
+<nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
+  <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
+    <!--部屋名(アカウント名)-->
+    <a href="#" class="navbar-brand"><h3>「{{ Account.nickname }}」の部屋</h3></a>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#">Top</a>
+        <a class="nav-item nav-link" href="#tag1">Bottom</a>
+        <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
+    </div>
+  </div>
+</nav>
+<!--表示アカウントの得意言語、苦手言語と一言を画面下部に表示-->
+<div class="container-fluid bg-secondary text-white text-center fixed-bottom">
+    <div class="row justify-content-between">
+        <div class="col">
+            任せて！：{{ Account.good_prog_language }}
+        </div>
+        <div class="col">
+            教えて～：{{ Account.bad_prog_language }}
+        </div>
+        <div class="col">
+            ひとこと：{{ Account.tweet }}
+        </div>
+    </div>
+</div>
+
+<!-- 記事に対するコメントを全件取得 -->
+<div class="container mb-5 justify-content-between">
+    <h3>みんなからのメッセージ</h3>
+    <ul class="list-group">
+        {% for comment in Account.comments.all %}
+        <li class="list-group-item">
+            <small><small>{{ comment.posted_by }} - {{ comment.posted_at|date:"y/n/j"}}</small></small></br>
+            <div>{{ comment.text }}</div>
+        </li>
+        {% empty %}
+        <p>メッセージはまだ届いていないようです</p>
+        {% endfor %}
+    </ul>
+    <!--ここからコメント投稿部分-->
+    <div class="row">
+        <div class="justify-content-around">
+            <form action="" method="POST">
+                <br>
+                <p><label for="com">メッセージを送る</label>
+                    <small><small>最終更新日：{{ Account.last_modify }}</small></small></p>
+                {% csrf_token %}
+                <textarea name="text" class="form-control" id="com"></textarea>
+                <div class="d-grid gap-2 mb-5">
+                    <button class="btn btn-outline-success" type="submit" id="button-addon">送信</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+<a name = "tag1"></a>
+</html>

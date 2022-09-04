@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8" />
+    <title>My page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<!--フッターメニュー-->
+<nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
+  <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
+      <!--部屋名(アカウント名)-->
+    <a href="#" class="navbar-brand"><h3>マイアカウント</h3></a>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#">Top</a>
+        <a class="nav-item nav-link" href="#tag1">Bottom</a>
+        <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
+        <a class="nav-item nav-link" href="{% url 'delete'%}">アカウントの削除</a>
+    </div>
+  </div>
+</nav>
+<!--アカウント情報の更新-->
+<div class="container mb-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <!--labelのforとinput・textareaのidでそれぞれ紐付け、nameはpostしたときにviewで使う-->
+            <div class="row">
+                <div class="col-6">
+                    <label for="university_name_input">大学名</label></br>
+                    <input type="text" class="form-control" name="university_name" id="university_name_input" value="{{ Account.university_name }}">
+                </div>
+                 <div class="col-6">
+                    <label for="university_name_input">キャンパス名</label></br>
+                    <input type="text" class="form-control" name="campus_name" id="campus_name_input" value="{{ Account.campus_name }}">
+                 </div>
+            </div>
+            <div>
+                <label for="university_name_input">得意な言語</label></br>
+                <input type="text" class="form-control" name="good_prog_language" id="good_prog_language_input" value="{{ Account.good_prog_language }}">
+            </div>
+            <div>
+                <label for="university_name_input">教えてほしい言語</label></br>
+                <input type="text" class="form-control" name="bad_prog_language" id="bad_prog_language_input" value="{{ Account.bad_prog_language }}">
+            </div>
+            <div>
+                <label for="text_area">ひとこと</label></br>
+                    <textarea name="tweet" class="form-control" id="text_area">{{ Account.tweet }}</textarea>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-success" name="btn_account_value" type="submit" id="button-addon">送信</button>
+                </div>
+            </div>
+        </form>
+</div>
+<!-- 記事に対するコメントを全件取得 -->
+<div class="container mb-5">
+    <h3>みんなからのコメント</h3>
+    <div class="justify-content-between">
+        <ul class="list-group">
+            {% for comment in Account.comments.all %}
+            <li class="list-group-item">
+                <small><small>{{ comment.posted_by }} - {{ comment.posted_at|date:"y/n/j"}}</small></small></br>
+                <div>{{ comment.text }}</div>
+            </li>
+            {% empty %}
+            <p>メッセージはまだ届いていないようです</p>
+            {% endfor %}
+        </ul>
+    </div>
+    <!--ここからコメント投稿部分-->
+    <div class="row">
+        <div class="justify-content-around">
+            <form action="" method="POST">
+                <br>
+                <p><label for="com">メッセージを送る</label>
+                    <small><small>最終更新日：{{ Account.last_modify }}</small></small></p>
+                {% csrf_token %}
+                <textarea class="form-control" name="text" id="com"></textarea>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-success" name="btn_comment" type="submit" id="button-addon2">送信</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<a name = "tag1"></a>
+</html>

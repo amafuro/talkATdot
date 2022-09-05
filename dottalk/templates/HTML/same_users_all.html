@@ -46,10 +46,10 @@
                  {% if Account.account_image %}
              <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>
              {% else %}
-             <img src="/media/default_profile_pic.png" alt="" class="img-fluid"></br>
+             <img src="/media/default_profile_pic2.png" alt="" class="img-fluid"></br>
              {% endif %}
                  <div class="card-header bg-success">
-                     <big><a class="stretched-link link-light" href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big>
+                     <big><a class="stretched-link link-light text-decoration-none" href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big>
                  </div>
                  <div class="card-body">
                      任せて！：{{ Account.good_prog_language }}</br>

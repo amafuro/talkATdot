@@ -15,6 +15,8 @@ from django.http import Http404
 #検索フォーム用
 from django.db.models import Q
 
+import os
+
 #アカウントを登録する際のクラスビュー
 class  AccountRegistration(TemplateView):
     #ユーザーがアカウントを作ろうとしたとき、問題が無いか判断する為にAccountCreateを作成
@@ -107,15 +109,6 @@ def Logout(request):
     logout(request)
     # ログイン画面遷移
     return HttpResponseRedirect(reverse('Login'))
-
-
-#ホーム
-#@マークをつけることでログイン中のみ遷移可能にする
-#@login_required
-#def home(request):
-#    params = {"UserID":request.user,}
-#    return render(request, "HTML/home.html",params)
-
 
 #アカウントの新規登録
 class AccountRegistration(TemplateView):
@@ -251,17 +244,19 @@ def edit(request):
             Account.save()
             return redirect("edit")
         else :
-            Account.university_name = request.POST["university_name"]
-            Account.campus_name = request.POST["campus_name"]
-            Account.tweet = request.POST["tweet"]
-            Account.good_prog_language = request.POST["good_prog_language"]
-            Account.bad_prog_language = request.POST["bad_prog_language"]
-            Account.save()
-            return redirect("same_users_all")
-
-
-
-
+            # フォーム入力の有効検証
+            if AddAccountForm(request.POST).is_valid():
+                Account.nickname = request.POST["nickname"]
+                Account.university_name = request.POST["university_name"]
+                Account.campus_name = request.POST["campus_name"]
+                Account.tweet = request.POST["tweet"]
+                Account.good_prog_language = request.POST["good_prog_language"]
+                Account.bad_prog_language = request.POST["bad_prog_language"]
+                Account.save()
+                return redirect("same_users_all")
+            else:
+                # フォームが有効でない場合
+                print(AddAccountForm(request.POST).errors)
     context = {"Account": Account}
     return render(request, template_name, context)
 

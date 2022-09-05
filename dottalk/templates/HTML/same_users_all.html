@@ -18,38 +18,44 @@
 </div>
 <!--フッターメニュー-->
 <div class="container-fluid">
-<nav class="navbar navbar-expand navbar-dark bg-secondary fixed-bottom">
-  <div class="collapse navbar-collapse justify-content-end" id="navmenu1">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" href="#">Top</a>
-        <a class="nav-item nav-link" href="{% url 'edit'%}">マイページ</a>
-        <a class="nav-item nav-link" href="{% url 'footprint' %}">あしあと</a>
-        <a class="nav-item nav-link" href="{% url 'Logout' %}">ログアウト</a>
-        <!--検索フォームの設置、言語に対して検索を行う用-->
-        {% csrf_token %}
-        <form action="same_users_all" method="get" class="form-inline">
-            <div class="input-group">
-                <input name="query" value="{{ request.GET.query }}" type="text" class="form-control" placeholder="プログラミング言語を入力">
-                <button type="submit" class="btn btn-success">検索</button>
-            </div>
-        </form>
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand navbar-dark bg-secondary fixed-bottom">
+     <div class="collapse navbar-collapse justify-content-end" id="navmenu1">
+         <div class="navbar-nav">
+            <a class="nav-item nav-link" href="#">Top</a>
+            <a class="nav-item nav-link" href="{% url 'edit'%}">マイページ</a>
+            <a class="nav-item nav-link" href="{% url 'footprint' %}">あしあと</a>
+            <a class="nav-item nav-link" href="{% url 'Logout' %}">ログアウト</a>
+             <!--検索フォームの設置、言語に対して検索を行う用-->
+             {% csrf_token %}
+             <form action="same_users_all" method="get" class="form-inline">
+                 <div class="input-group">
+                     <input name="query" value="{{ request.GET.query }}" type="text" class="form-control" placeholder="プログラミング言語を入力">
+                     <button type="submit" class="btn btn-success">検索</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+    </nav>
 </div>
 <!--一致する他ユーザーのアカウントを並べる-->
-<div class="container-fluid">
-    <div class="row justify-content-around">
+<div class="container">
+    <div class="row">
         {% for Account in object_list %}
-         <div class="col-4 text-center">
-             {% if Account.account_image %}
-             <img src="{{ Account.account_image.url }}" alt=""></br>
+         <div class="col-4 text-center align-self-center">
+             <div class="card border-secondary">
+                 {% if Account.account_image %}
+             <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>
              {% else %}
              <img src="/media/default_profile_pic.png" alt="" class="img-fluid"></br>
              {% endif %}
-             <big><a href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big></br>
-             任せて！：{{ Account.good_prog_language }}</br>
-             教えて～：{{ Account.bad_prog_language }}
+                 <div class="card-header bg-success">
+                     <big><a class="stretched-link link-light" href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big>
+                 </div>
+                 <div class="card-body">
+                     任せて！：{{ Account.good_prog_language }}</br>
+                     教えて～：{{ Account.bad_prog_language }}
+                 </div>
+             </div>
          </div>
         {% empty %}
         <p>まだ他にユーザーはいないようです</p>

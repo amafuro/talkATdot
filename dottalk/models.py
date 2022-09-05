@@ -10,10 +10,8 @@ python manage.py runserver
 from django.db import models
 # ユーザー認証
 from django.contrib.auth.models import User
-#アカウント画像のリサイズ、ファイル名の変更に使う
+#アカウント画像のファイル名の変更に使う
 from django_cleanup import cleanup
-from django.core.files.base import ContentFile
-from sorl.thumbnail import get_thumbnail, delete
 import uuid
 
 #アップロードされた画像の名前をuuidで作ったものに変更する
@@ -46,6 +44,7 @@ class Account(models.Model):
 
     #画像のリサイズを行う
     #縦横それぞれ100ピクセルを上限とし、それ以上だったらリサイズする
+    """
     def save(self, *args, **kwargs):
         #一時的に画像を保存する
         super(Account, self).save(*args, **kwargs)
@@ -56,7 +55,11 @@ class Account(models.Model):
             resized = get_thumbnail(self.account_image, "{}x{}".format(new_width, new_height))
             name = resized.name.split('/')[-1]# 結局上で定義したUUIDの名前になるのでこれは仮の名前
             self.account_image.save(name, ContentFile(resized.read()), True)
-            delete(temp_img_name)
+
+            try:
+                delete(temp_img_name)
+            except:
+                pass"""
 
 # コメント用
 class Comment(models.Model):
@@ -75,17 +78,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
-"""
-class Footprint(models.Model):
-    #アクセス先のid記録用
-    number=models.IntegerField()
-    #履歴登録日時
-    posted_at = models.DateTimeField(auto_now=True)
-    # コメント投稿者のアカウント記録用
-    posted_by = models.IntegerField()
-    #アカウントへのリレーション
-    Account = models.ForeignKey(to=Account, related_name='footprint', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.number
-"""

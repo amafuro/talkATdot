@@ -190,15 +190,14 @@ class same_campus_users(ListView,LoginRequiredMixin):
                 # Qオブジェクトのandは&,orは|、自分のアカウントを除き、新しい順にする
                 Q(university_name=loginuser_uni.university_name)&
                 Q(campus_name=loginuser_uni.campus_name)&
+                Q(nickname__icontains=q_word) |
                 Q(good_prog_language__icontains=q_word) |
-                Q(bad_prog_language__icontains=q_word))\
-                .exclude(user=self.request.user).order_by('-last_modify')
+                Q(bad_prog_language__icontains=q_word)).exclude(user=self.request.user).order_by('-last_modify')
         #検索ワードがなければ大学、キャンパスが一致するものを取得
         else:
             object_list = models.Account.objects.filter(
                 university_name=loginuser_uni.university_name,
-                campus_name=loginuser_uni.campus_name)\
-                .exclude(user=self.request.user).order_by('-last_modify')
+                campus_name=loginuser_uni.campus_name).exclude(user=self.request.user).order_by('-last_modify')
         return object_list
 
 
@@ -289,16 +288,18 @@ class footprint(ListView,LoginRequiredMixin):
         fp = models.Comment.objects.filter(Q(posted_by_id=loginuser.id)).values_list('posted_to_id', flat=True)
         # 取得したコメント先アカウントのidをリストにする
         fp_list = list(fp)
-        #　コメント先アカウント一覧を取得、最後にコメントしたものが一番上になるように並び替える
-        object_list = models.Account.objects.filter(Q(id__in=fp_list)).order_by('-comments__posted_at')
-
+        print(fp_list)
+        #　コメント先アカウント一覧を取得、最後にコメントしたものが一番上になるように並び替えるlast_modify
+        #自分のアカウントは表示しないようにする-comments__posted_at
+        object_list = models.Account.objects.filter(Q(id__in=fp_list)).order_by('-last_modify')
         return object_list
 
 #カレンダー
+@login_required
 def calendar(request):
     template_name = "HTML/calendar.html"
     return render(request, template_name)
-
+@login_required
 def add_event(request):
     """
     イベント登録
@@ -338,7 +339,7 @@ def add_event(request):
 
     # 空を返却
     return HttpResponse("")
-
+@login_required
 def get_events(request):
     """
     イベントの取得

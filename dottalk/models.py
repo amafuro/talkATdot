@@ -42,25 +42,6 @@ class Account(models.Model):
     def __str__(self):
         return self.user
 
-    #画像のリサイズを行う
-    #縦横それぞれ100ピクセルを上限とし、それ以上だったらリサイズする
-    """
-    def save(self, *args, **kwargs):
-        #一時的に画像を保存する
-        super(Account, self).save(*args, **kwargs)
-        temp_img_name = self.account_image.name
-        if self.account_image.width > 100 or self.account_image.height > 100:
-            new_width = 100
-            new_height = 100
-            resized = get_thumbnail(self.account_image, "{}x{}".format(new_width, new_height))
-            name = resized.name.split('/')[-1]# 結局上で定義したUUIDの名前になるのでこれは仮の名前
-            self.account_image.save(name, ContentFile(resized.read()), True)
-
-            try:
-                delete(temp_img_name)
-            except:
-                pass"""
-
 # コメント用
 class Comment(models.Model):
     #コメント内容

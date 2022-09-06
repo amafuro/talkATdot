@@ -2,7 +2,8 @@
 
 from django import forms
 from django.contrib.auth.models import User
-from .models import Account
+from .models import Account, Event
+
 
 # フォームクラス作成
 class AccountForm(forms.ModelForm):
@@ -44,3 +45,12 @@ class AddAccountForm(forms.ModelForm):
                   'good_prog_language':"得意な言語",
                   'bad_prog_language':"教えてほしい言語",
         }
+
+class EventForm(forms.Form):
+    start_date = forms.IntegerField(required=True)
+    end_date = forms.IntegerField(required=True)
+    event_name = forms.CharField(required=True, max_length=32)
+
+class CalendarForm(forms.Form):
+    start_date = forms.IntegerField(required=True)
+    end_date = forms.IntegerField(required=True)

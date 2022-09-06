@@ -78,3 +78,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+#カレンダー用モデル
+class Event(models.Model):
+    start_date = models.DateField()
+    end_date = models.DateField()
+    event_name = models.CharField(max_length=200)

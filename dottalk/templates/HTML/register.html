@@ -19,8 +19,10 @@
 </div>
 
  {% if AccountCreate %}
+<div class="text-center mt-5">
    <h1>アカウントの登録が完了しました!</h1>
-　　<a href="{% url 'Login' %}">ログインページへ</a>
+　　<a class="link-success" href="{% url 'Login' %}">ログインページへ</a>
+</div>
  {% else %}
    <form enctype="multipart/form-data" method="post">
    {% csrf_token %}

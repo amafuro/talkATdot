@@ -8,35 +8,45 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
-<nav class="navbar navbar-expand navbar-dark bg-success ">
+<!--ヘッダーメニュー-->
+<nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
   <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
     <!--部屋名(アカウント名)-->
     <a href="#" class="navbar-brand"><h3>あしあとリスト</h3></a>
     <div class="navbar-nav">
-        <a class="nav-item nav-link" href="#">Top</a>
-        <a class="nav-item nav-link" href="#tag1">Bottom</a>
         <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
     </div>
   </div>
 </nav>
-<div class="container-fluid bg-secondary text-white">
-    <div class="justify-content-around ">
-            <p>返信が来ているかチェックしよう</p>
+<!--フッターメニュー-->
+<div class="container-fluid bg-secondary text-white fixed-bottom ">
+    <div class="text-center">
+        <a class="stretched-link link-light text-decoration-none" href="#tag1">
+            返信が来ているかチェックしよう
+        </a>
     </div>
 </div>
 <!--一致する他ユーザーのアカウントを並べる-->
-<div class="container">
+<div class="container mb-5">
     <div class="row">
         {% for Account in object_list %}
-         <div class="col-4 text-center">
-             {% if Account.account_image %}
-             <img src="{{ Account.account_image.url }}" alt="" width="100" height="100"></br>
+         <div class="col-4 text-center align-self-center mt-1 mb-1">
+             <div class="card border-secondary">
+                 {% if Account.account_image %}
+             <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>
              {% else %}
-             <img src="/media/default_profile_pic.png" alt="" class="img-fluid"></br>
+                 <!--chromeのキャッシュが残っていると画像が更新されないことがあった
+                 「キャッシュの消去とハード再読み込み」で解決-->
+             <img src="media/default_avatar.png" alt="" class="img-fluid"></br>
              {% endif %}
-             <big><a href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big></br>
-             任せて！：{{ Account.good_prog_language }}</br>
-             教えて～：{{ Account.bad_prog_language }}
+                 <div class="card-header bg-success">
+                     <big><a class="stretched-link link-light text-decoration-none" href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big>
+                 </div>
+                 <div class="card-body">
+                     任せて！：{{ Account.good_prog_language }}</br>
+                     教えて～：{{ Account.bad_prog_language }}
+                 </div>
+             </div>
          </div>
         {% empty %}
         <p>まだメッセージを送っていないようです</p>

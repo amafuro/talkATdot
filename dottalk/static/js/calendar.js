@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        locale: 'ja',
+        dayCellContent: function(e) {
+            e.dayNumberText = e.dayNumberText.replace('日', '');
+        },
+
 
         // 日付をクリック、または範囲を選択したイベント
         selectable: true,

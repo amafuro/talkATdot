@@ -19,10 +19,14 @@ urlpatterns = [
     path("edit/delete/",views.delete,name="delete"),
     #あしあと表示用
     path("footprint",views.footprint.as_view(),name="footprint"),
-    #カレンダー
+    #カレンダー表示、追加
     path("calendar",views.calendar,name="calendar"),
     path("add/", views.add_event, name="add_event"),
     path("list/", views.get_events, name="get_events"),
+    #カレンダーイベント一覧表示、削除
+    path("calendar/event_list/",views.calendar_event_list.as_view(),name="event_list"),
+    path("event_edit/<int:id>/",views.event_edit,name="event_edit"),
+    path("event_edit/<int:id>/delete/",views.event_delete,name="event_delete"),
 ]
 #アカウント画像を表示する際にURLを反映する
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

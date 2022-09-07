@@ -1,5 +1,3 @@
-from datetime import date
-
 from django.shortcuts import render, redirect, get_object_or_404
 from . import models
 # テンプレートタグ
@@ -23,6 +21,9 @@ from .forms import EventForm
 import time
 from django.http import JsonResponse
 from .forms import CalendarForm
+#カレンダーイベント一覧表示用
+import datetime
+
 
 #アカウントを登録する際のクラスビュー
 class  AccountRegistration(TemplateView):
@@ -202,7 +203,7 @@ class same_campus_users(ListView,LoginRequiredMixin):
 
 
 #各アカウントのトークルーム
-def talkroom(request,id):
+def talkroom(request, id):
     template_name = "HTML/talkroom.html"
     try:
         #選択されたアカウントの情報を取得する
@@ -288,7 +289,6 @@ class footprint(ListView,LoginRequiredMixin):
         fp = models.Comment.objects.filter(Q(posted_by_id=loginuser.id)).values_list('posted_to_id', flat=True)
         # 取得したコメント先アカウントのidをリストにする
         fp_list = list(fp)
-        print(fp_list)
         #　コメント先アカウント一覧を取得、最後にコメントしたものが一番上になるように並び替えるlast_modify
         #自分のアカウントは表示しないようにする-comments__posted_at
         object_list = models.Account.objects.filter(Q(id__in=fp_list)).order_by('-last_modify')
@@ -385,3 +385,57 @@ def get_events(request):
         )
 
     return JsonResponse(list, safe=False)
+
+#カレンダーイベント一覧表示、編集用
+class calendar_event_list (ListView,LoginRequiredMixin):
+    models = models.Event
+    context_object_name = "event_list"
+    template_name = "HTML/event_list.html"
+
+    # 条件分岐でレコード表示変更
+    def get_queryset(self, **kwargs):
+        #今日から1週間後の日付取得
+        one_week_after = datetime.datetime.now() + datetime.timedelta(days=21)
+
+        # Get処理
+        if self.request.method == "GET":
+
+            # 検索ワードを取得
+            q_word = self.request.GET.get('query')
+
+            #今日から1週間の範囲の予定をfilterして表示
+            if q_word:
+                queryset = models.Event.objects.filter(Q(event_name__icontains=q_word)).order_by("start_date")
+            else:
+                queryset = models.Event.objects.filter(start_date__range=[ datetime.datetime.now(),one_week_after]).order_by("start_date")
+
+        return queryset
+
+#各イベント詳細
+def event_edit(request, id):
+    template_name = "HTML/event_edit.html"
+    try:
+        #選択されたイベントの情報を取得する
+        Event = models.Event.objects.get(id=id)
+    except models.Event.DoesNotExist:
+        #選択されたイベントがなければ404を返す
+        raise Http404
+    if request.method == "POST":
+        if "btn_event_edit" in request.POST:
+            Event.event_name=request.POST["event_name"]
+            Event.start_date = request.POST["start_date"]
+            Event.end_date = request.POST["end_date"]
+            Event.save()
+            return redirect("calendar")
+    context = {"Event":Event}
+    return render(request,template_name,context)
+
+#カレンダーイベントの削除
+def event_delete(request,id):
+    try:
+        #選択されたイベントの情報を取得する
+        Event = models.Event.objects.get(id=id).delete()
+    except Event.DoesNotExist:
+        #選択されたイベントがなければ404を返す
+        raise Http404
+    return HttpResponseRedirect(reverse('event_list'))

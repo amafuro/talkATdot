@@ -65,3 +65,37 @@ class Event(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     event_name = models.CharField(max_length=200)
+
+#アイデアモデル
+class Idea(models.Model):
+
+    title = models.CharField(max_length=128)
+    text = models.TextField()
+    posted_at = models.DateTimeField(auto_now_add=True)
+    last_modify = models.DateTimeField(auto_now=True)
+
+    # コメント投稿者のアカウントニックネーム記録用
+    posted_by = models.CharField(max_length=100)
+    # コメント投稿者のアカウントid記録用
+    posted_by_id = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+# コメント用
+class Idea_comment(models.Model):
+    #コメント内容
+    text = models.TextField()
+    #コメント投稿者のアカウントニックネーム記録用
+    posted_by = models.CharField(max_length=100)
+    # コメント投稿者のアカウントid記録用
+    posted_by_id = models.IntegerField()
+    # コメント送信先のアイデアid記録用
+    posted_to_id = models.IntegerField()
+    # コメント投稿日時
+    posted_at = models.DateTimeField(auto_now_add=True)
+    #アカウントへのリレーション
+    Account = models.ForeignKey(to=Idea, related_name='idea_comments', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text

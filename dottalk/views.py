@@ -412,6 +412,7 @@ class calendar_event_list (ListView,LoginRequiredMixin):
         return queryset
 
 #各イベント詳細
+@login_required
 def event_edit(request, id):
     template_name = "HTML/event_edit.html"
     try:
@@ -431,6 +432,7 @@ def event_edit(request, id):
     return render(request,template_name,context)
 
 #カレンダーイベントの削除
+@login_required
 def event_delete(request,id):
     try:
         #選択されたイベントの情報を取得する
@@ -439,3 +441,78 @@ def event_delete(request,id):
         #選択されたイベントがなければ404を返す
         raise Http404
     return HttpResponseRedirect(reverse('event_list'))
+
+#アイデア詳細ページ
+def idea_detail(request,id):
+    template_name = "HTML/idea_detail.html"
+    try:
+        Idea = models.Idea.objects.get(id=id)
+        # コメント投稿者のアカウント取得
+        loginuser = models.Account.objects.get(user=request.user)
+        loginuserID = loginuser.id
+    except models.Idea.DoesNotExist:
+        raise Http404
+    if request.method == "POST":
+        # データベースに投稿されたコメント、投稿者名を保存
+        models.Idea_comment.objects.create(text=request.POST["text"],
+                                           posted_by=loginuser.nickname,
+                                           posted_by_id=loginuser.id,
+                                           posted_to_id=Idea.id,
+                                           Account=Idea)
+        # コメントが投稿されたら、投稿されたアイデアの方の更新日も更新する
+        Idea.save()
+    context = {"Idea":Idea,
+               "loginuserID":loginuserID}
+    return render(request,template_name,context)
+
+#アイデア投稿
+@login_required
+def idea_new(request):
+    template_name = "HTML/idea_new.html"
+    if request.method == "POST":
+        #ログインしているユーザーの情報を取得
+        loginuser = models.Account.objects.get(user=request.user)
+        models.Idea.objects.create(title=request.POST["title"],
+                                   text=request.POST["text"],
+                                   posted_by=loginuser.nickname,
+                                   posted_by_id=loginuser.id)
+        return redirect("idea_list")
+    return render(request, template_name)
+
+
+#アイデア一覧
+# 検索ワードがあった場合はそれを含めて検索
+class idea_list(ListView,LoginRequiredMixin):
+    model = models.Idea
+    template_name = "HTML/idea_list.html"
+    def get_queryset(self):
+        # ログイン中のユーザーのクエリーセットを取得
+        loginuser = models.Account.objects.get(user=self.request.user)
+        #検索ワードを取得
+        q_word = self.request.GET.get('query')
+        if loginuser is None:
+            return redirect("Login")
+
+        # 検索ワードがあれば一致するものを取得
+        if q_word :
+            object_list = models.Idea.objects.filter(
+                # Qオブジェクトのandは&,orは|、投稿された順に表示
+                Q(title__icontains=q_word) |
+                Q(text__icontains=q_word) |
+                Q(posted_by__icontains=q_word)).order_by('-posted_at')
+        #検索ワードがなければ大学、キャンパスが一致するものを取得
+        else:
+            object_list = models.Idea.objects.all().order_by('-posted_at')
+
+        return object_list
+
+#カレンダーイベントの削除
+@login_required
+def idea_delete(request,id):
+    try:
+        #選択されたイベントの情報を取得する
+        Idea = models.Idea.objects.get(id=id).delete()
+    except Event.DoesNotExist:
+        #選択されたイベントがなければ404を返す
+        raise Http404
+    return HttpResponseRedirect(reverse('idea_list'))

@@ -12,7 +12,10 @@
 <div class="sticky-top">
      <div class="top_bg bg-success">
         <div class="top_inner text-white d-flex justify-content-center">
-          <h1><a class="link-light text-decoration-none" href="#">キャンパス内のプログラマー</a></h1>
+            {% for Account in object_list|slice:":1" %}
+          <h1><a class="link-light text-decoration-none" href="#">
+              {{ Account.university_name }} - {{ Account.campus_name }}のプログラマー</a></h1>
+            {% endfor %}
         </div>
      </div>
 </div>
@@ -24,6 +27,7 @@
              <a class="nav-item nav-link" href="{% url 'edit'%}">マイページ</a>
              <a class="nav-item nav-link" href="{% url 'footprint' %}">あしあと</a>
              <a class="nav-item nav-link" href="{% url 'calendar' %}">シェアカレンダー</a>
+             <a class="nav-item nav-link" href="{% url 'idea_list' %}">アイデアの森</a>
              <a class="nav-item nav-link" href="{% url 'Logout' %}">ログアウト</a>
              <!--検索フォームの設置、言語に対して検索を行う用-->
              {% csrf_token %}

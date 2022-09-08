@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<p><a href="{% url 'idea_list' %}">アイデア一覧に戻る</a></p>
+<!--ページの見出し-->
+<div class="top_wrap">
+     <div class="top_bg bg-success">
+        <div class="top_inner text-white d-flex justify-content-center">
+          <h1>アイデア投稿</h1>
+        </div>
+     </div>
+</div>
+<!--アイデアフォーム-->
+<form action="" method="post">
+    {% csrf_token %}
+    <p><label for="title_input">記事のタイトル</label></p>
+    <p><input type="text" name="title" id="title_input"></p>
+    <p><label for="text_area">記事の本文</label></p>
+    <p><textarea name="text" id="text_area" cols="30" rows="10"></textarea></p>
+    <p><button type="submit">投稿</button></p>
+</form>
+
+</body>
+</html>

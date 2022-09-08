@@ -2,7 +2,7 @@
 
 from django import forms
 from django.contrib.auth.models import User
-from .models import Account, Event
+from .models import Account, Idea
 
 
 # フォームクラス作成

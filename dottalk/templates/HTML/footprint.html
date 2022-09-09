@@ -3,21 +3,22 @@
 {% load static %}
 <head>
     <meta charset="utf-8" />
-    <title>あしあとリスト</title>
+    <title>Footprint list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
+
 <!--ヘッダーメニュー-->
 <nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
   <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
-    <!--部屋名(アカウント名)-->
     <a href="#" class="navbar-brand"><h3>あしあとリスト</h3></a>
     <div class="navbar-nav">
         <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
     </div>
   </div>
 </nav>
+
 <!--フッターメニュー-->
 <div class="container-fluid bg-secondary text-white fixed-bottom ">
     <div class="text-center">
@@ -26,6 +27,7 @@
         </a>
     </div>
 </div>
+
 <!--一致する他ユーザーのアカウントを並べる-->
 <div class="container mb-5">
     <div class="row">
@@ -57,6 +59,7 @@
         {% endfor %}
     </div>
 </div>
+
 </body>
 <a name = "tag1"></a>
 </html>

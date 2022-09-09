@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
+
 <!--フッターメニュー-->
 <nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
   <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
@@ -17,6 +18,7 @@
     </div>
   </div>
 </nav>
+
 <!--イベントの編集-->
 <div class="container mb-5 justify-content-between">
     <form action="" method="POST">
@@ -26,14 +28,14 @@
         <input type="text" class="form-control" name="event_name" id="event_name_input" value="{{ Event.event_name }}">
     </div>
         <div class="mt-3">
-            <p class="h5">変更前の日程</p>
+            <p class="h5">日程</p>
         </div>
     <div class="mt-2">
-        <label for="start_date_input">はじまり：{{ Event.start_date }}</label></br>
+        <label for="start_date_input">変更前開始日：{{ Event.start_date }}</label></br>
         <input type="date" class="form-control" name="start_date" id="start_date_input">
     </div>
     <div class="mt-2">
-        <label for="end_date_input">おわり：{{ Event.end_date }}</label></br>
+        <label for="end_date_input">変更前終了日：{{ Event.end_date }}</label></br>
         <input type="date" class="form-control" name="end_date" id="end_date_input">
     </div>
     <div class="d-grid gap-2 mt-4">
@@ -42,6 +44,7 @@
     </div>
     </form>
 </div>
+
 <!-- モーダル(イベント削除の確認用)の設定 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog">
@@ -60,9 +63,12 @@
     </div>
   </div>
 </div>
+
 <!--モーダルを表示する為にscriptタグでpopper.jsとjavascript.jsを追加する必要がある
 </body>タグの前に挿入する-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

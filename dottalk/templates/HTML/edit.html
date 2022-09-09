@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load static %}
-<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="utf-8" />
@@ -9,10 +8,10 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
+
 <!--フッターメニュー-->
 <nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
   <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
-      <!--部屋名(アカウント名)-->
     <a href="#" class="navbar-brand"><h3>マイアカウント</h3></a>
     <div class="navbar-nav">
         <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
@@ -20,6 +19,7 @@
     </div>
   </div>
 </nav>
+
 <!-- モーダル(アカウント削除の確認用)の設定 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog">
@@ -38,6 +38,7 @@
     </div>
   </div>
 </div>
+
 <!--フッターメニュー-->
 <div class="container-fluid bg-secondary text-white fixed-bottom">
     <div class="text-center">
@@ -46,6 +47,7 @@
         </a>
     </div>
 </div>
+
 <!--アカウント情報の更新-->
 <div class="container mb-5">
         <form action="" method="POST">
@@ -82,7 +84,8 @@
             </div>
         </form>
 </div>
-<!-- 記事に対するコメントを全件取得 -->
+
+<!-- アカウントに対するコメントを全件取得 -->
 <div class="container mb-5">
     <h3>みんなからのコメント</h3>
     <div class="justify-content-between">
@@ -113,9 +116,13 @@
         </div>
     </div>
 </div>
+
 <!--モーダルを表示する為にscriptタグでpopper.jsとjavascript.jsを追加する必要がある
 </body>タグの前に挿入する-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
 </body>
 <a name = "tag1"></a>
 </html>

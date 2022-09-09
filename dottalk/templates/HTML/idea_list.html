@@ -18,19 +18,27 @@
     </div>
   </div>
 </nav>
+
 <!--フッターメニュー-->
 <div class="container-fluid bg-secondary fixed-bottom">
     <div class="row justify-content-center">
-        <!--検索フォームの設置、言語に対して検索を行う用-->
-        {% csrf_token %}
-        <form action="" method="get" class="form-inline col-8 m-2">
-            <div class="input-group">
-                <input name="query" value="{{ request.GET.query }}"
-                       type="text" class="form-control text-wrap"
-                       placeholder="Idea keyword">
-                <button type="submit" class="btn btn-success">検索</button>
-            </div>
-        </form>
+        <div class="col-8 text-center">
+            <!--検索フォームの設置、言語に対して検索を行う用-->
+            {% csrf_token %}
+            <form action="" method="get" class="form-inline m-2">
+                <div class="input-group">
+                    <input name="query" value="{{ request.GET.query }}"
+                           type="text" class="form-control text-wrap"
+                           placeholder="Idea keyword">
+                    <button type="submit" class="btn btn-success">検索</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-3 text-center">
+            <form action="" method="get" class="form-inline m-2">
+                <button type="submit"  name="btn_my_Idea" class="btn btn-success">自分の投稿のみ表示</button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -46,7 +54,7 @@
 <!--最大100件まで表示-->
 {% for Idea in object_list|slice:":100"%}
 <div class="card text-center mt-4">
-  <div class="card-header">
+    <div class="card-header">
     <h5 class="card-title">{{ Idea.title }}</h5>
   </div>
   <div class="card-body">
@@ -67,12 +75,11 @@
 </div>
 {% endfor %}
 
+<!--最大100件まで表示していることを示す。クリックでページトップへ-->
 <div class="mt-3 mb-5 pb-5">
     <div class="text-center mb-auto">
         <small>
-            <a class="text-muted text-decoration-none" href="#">
-            最新の投稿100件まで表示しています
-            </a>
+            <a class="text-muted text-decoration-none" href="#">最新の投稿100件まで表示しています</a>
         </small>
     </div>
 </div>

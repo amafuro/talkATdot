@@ -493,16 +493,20 @@ class idea_list(ListView,LoginRequiredMixin):
         if loginuser is None:
             return redirect("Login")
 
-        # 検索ワードがあれば一致するものを取得
-        if q_word :
-            object_list = models.Idea.objects.filter(
-                # Qオブジェクトのandは&,orは|、投稿された順に表示
-                Q(title__icontains=q_word) |
-                Q(text__icontains=q_word) |
-                Q(posted_by__icontains=q_word)).order_by('-posted_at')
-        #検索ワードがなければ大学、キャンパスが一致するものを取得
-        else:
-            object_list = models.Idea.objects.all().order_by('-posted_at')
+        if "btn_my_Idea" in self.request.GET:
+            object_list = models.Idea.objects.filter(posted_by_id=loginuser.id).order_by('-posted_at')
+
+        else :
+            # 検索ワードがあれば一致するものを取得
+            if q_word :
+             object_list = models.Idea.objects.filter(
+                 # Qオブジェクトのandは&,orは|、投稿された順に表示
+                 Q(title__icontains=q_word) |
+                 Q(text__icontains=q_word) |
+                 Q(posted_by__icontains=q_word)).order_by('-posted_at')
+            #検索ワードがなければ大学、キャンパスが一致するものを取得
+            else:
+                object_list = models.Idea.objects.all().order_by('-posted_at')
 
         return object_list
 

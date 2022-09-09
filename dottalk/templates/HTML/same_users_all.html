@@ -50,21 +50,21 @@
 <div class="container mb-5">
     <div class="row">
         {% for Account in object_list %}
-         <div class="col-4 text-center align-self-center  mt-1 mb-4">
+         <div class="col-4 text-center align-self-center  mt-1 mb-4 mx-auto">
              <div class="card border-secondary">
                  {% if Account.account_image %}
-             <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>
-             {% else %}
-                 <!--chromeのキャッシュが残っていると画像が更新されないことがあった
-                 「キャッシュの消去とハード再読み込み」で解決-->
-             <img src="media/default_profile_pic.png" alt="" class="img-fluid"></br>
-             {% endif %}
+                 <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>
+                 {% else %}
+                 <!--chromeのキャッシュが残っていると画像が更新されないことがあった「キャッシュの消去とハード再読み込み」で解決-->
+                 <img src="media/default_profile_pic.png" alt="" class="img-fluid"></br>
+                 {% endif %}
                  <div class="card-header bg-success">
-                     <big><a class="stretched-link link-light text-decoration-none" href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big>
+                     <big><a class="stretched-link link-light text-decoration-none"
+                             href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big>
                  </div>
                  <div class="card-body">
-                     任せて！：{{ Account.good_prog_language }}</br>
-                     教えて～：{{ Account.bad_prog_language }}
+                     <p>任せて！：{{ Account.good_prog_language }}</p>
+                     <p>教えて～：{{ Account.bad_prog_language }}</p>
                  </div>
              </div>
          </div>

@@ -20,12 +20,13 @@
 
 <!--アカウント作成フォーム、作成後は作成完了メッセージを表示-->
  {% if AccountCreate %}
-<div class="text-center mt-5">
-   <h1>アカウントの登録が完了しました!</h1>
-　　<a class="link-success" href="{% url 'Login' %}">ログインページへ</a>
+<div class="text-center mt-5 text-center">
+   <h1 class="m-5">アカウントの登録が完了しました!</h1>
+　　<a class="link-success mt-5" href="{% url 'Login' %}">ログインページへ</a>
 </div>
 
  {% else %}
+<main class="w-50 m-auto mt-3">
 <form enctype="multipart/form-data" method="post">
     {% csrf_token %}
     {{ account_form.as_p }}
@@ -34,9 +35,10 @@
         <button class="btn btn-outline-success" name="btn_account_value" type="submit" id="button-addon">登録</button>
     </div>
 </form>
-<div class="mt-3">
+<div class="mt-3 text-center">
      <a class="link-success" href="{% url 'Login' %}">ログインページに戻る</a>
 </div>
+</main>
 
  {% endif %}
 

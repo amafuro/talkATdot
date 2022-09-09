@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from . import models
 # テンプレートタグ
 from django.views.generic import TemplateView, ListView
@@ -300,12 +300,10 @@ class footprint(ListView,LoginRequiredMixin):
 def calendar(request):
     template_name = "HTML/calendar.html"
     return render(request, template_name)
+
+#イベントの登録
 @login_required
 def add_event(request):
-    """
-    イベント登録
-    """
-
     if request.method == "GET":
         # GETは対応しない
         raise Http404()
@@ -340,12 +338,10 @@ def add_event(request):
 
     # 空を返却
     return HttpResponse("")
+
+#イベントの取得
 @login_required
 def get_events(request):
-    """
-    イベントの取得
-    """
-
     if request.method == "GET":
         # GETは対応しない
         raise Http404()
@@ -444,6 +440,7 @@ def event_delete(request,id):
     return HttpResponseRedirect(reverse('event_list'))
 
 #アイデア詳細ページ
+@login_required
 def idea_detail(request,id):
     template_name = "HTML/idea_detail.html"
     try:
@@ -508,13 +505,13 @@ class idea_list(ListView,LoginRequiredMixin):
                  Q(title__icontains=q_word) |
                  Q(text__icontains=q_word) |
                  Q(posted_by__icontains=q_word)).order_by('-posted_at')
-            #検索ワードがなければ大学、キャンパスが一致するものを取得
+            #検索ワードがなければアイデア全てを取得
             else:
                 object_list = models.Idea.objects.all().order_by('-posted_at')
 
         return object_list
 
-#カレンダーイベントの削除
+#アイデアの削除
 @login_required
 def idea_delete(request,id):
     try:

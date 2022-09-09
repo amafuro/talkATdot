@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                     .catch(() => {
                         // バリデーションエラーなど
-                        alert("登録に失敗しました");
+                        alert("登録に失敗しました。文字数などを見直してみてください。");
                     });
             }
         },
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(() => {
                     // バリデーションエラーなど
-                    alert("登録に失敗しました");
+                    alert("登録に失敗しました。文字数などを見直してみてください。");
                 });
         },
     });

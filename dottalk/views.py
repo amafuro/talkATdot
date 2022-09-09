@@ -189,16 +189,16 @@ class same_campus_users(ListView,LoginRequiredMixin):
         if q_word :
             object_list = models.Account.objects.filter(
                 # Qオブジェクトのandは&,orは|、自分のアカウントを除き、新しい順にする
-                Q(university_name=loginuser_uni.university_name)&
-                Q(campus_name=loginuser_uni.campus_name)&
+                Q(university_name=loginuser_uni.university_name),
+                Q(campus_name=loginuser_uni.campus_name),
                 Q(nickname__icontains=q_word) |
                 Q(good_prog_language__icontains=q_word) |
                 Q(bad_prog_language__icontains=q_word)).exclude(user=self.request.user).order_by('-last_modify')
         #検索ワードがなければ大学、キャンパスが一致するものを取得
         else:
             object_list = models.Account.objects.filter(
-                university_name=loginuser_uni.university_name,
-                campus_name=loginuser_uni.campus_name).exclude(user=self.request.user).order_by('-last_modify')
+                Q(university_name=loginuser_uni.university_name),
+                Q(campus_name=loginuser_uni.campus_name)).exclude(user=self.request.user).order_by('-last_modify')
         return object_list
 
 
@@ -253,13 +253,14 @@ def edit(request):
         else :
             # フォーム入力の有効検証
             if AddAccountForm(request.POST).is_valid():
-                Account.nickname = request.POST["nickname"]
-                Account.university_name = request.POST["university_name"]
-                Account.campus_name = request.POST["campus_name"]
-                Account.tweet = request.POST["tweet"]
-                Account.good_prog_language = request.POST["good_prog_language"]
-                Account.bad_prog_language = request.POST["bad_prog_language"]
-                Account.save()
+                loginuser = models.Account.objects.get(user=request.user)
+                loginuser.nickname = request.POST["nickname"]
+                loginuser.university_name = request.POST["university_name"]
+                loginuser.campus_name = request.POST["campus_name"]
+                loginuser.tweet = request.POST["tweet"]
+                loginuser.good_prog_language = request.POST["good_prog_language"]
+                loginuser.bad_prog_language = request.POST["bad_prog_language"]
+                loginuser.save()
                 return redirect("same_users_all")
             else:
                 # フォームが有効でない場合

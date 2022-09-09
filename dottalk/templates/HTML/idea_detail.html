@@ -44,28 +44,28 @@
 </div>
 
 <!--投稿詳細-->
-<div class="container mt-3 mb-5 justify-content-between">
+<div class="container mt-3 mb-5 w-50">
     <div class="text-center">
-        <h2>{{ Idea.title }}</h2>
+        <h3>{{ Idea.title }}</h3>
     </div>
     <div class="text-end">
         <small class="text-muted" >投稿者 : {{ Idea.posted_by }}</small></br>
         <small class="text-muted" >投稿日時 : {{ Idea.posted_at }}</small>
     </div>
-    <!--投稿本文-->
+    <!--投稿本文 | linebreaksbrで改行表示-->
     <div class="border-top border-bottom text-wrap text-break mt-3 pt-2 pb-2">
-        {{ Idea.text }}
+        {{ Idea.text| linebreaksbr }}
     </div>
 </div>
 
 <!-- アイデアに対するコメントを全件取得 -->
-<div class="container mb-5 justify-content-between">
+<div class="container mb-5 w-50">
     <h3>みんなからのメッセージ</h3>
     <ul class="list-group">
         {% for idea_comment in Idea.idea_comments.all %}
         <li class="list-group-item">
             <small><small>{{ idea_comment.posted_by }} - {{ idea_comment.posted_at|date:"y/n/j"}}</small></small></br>
-            <div>{{ idea_comment.text }}</div>
+            <div>{{ idea_comment.text| linebreaksbr }}</div>
         </li>
         {% empty %}
         <p>メッセージはまだ届いていないようです</p>

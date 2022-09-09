@@ -45,7 +45,7 @@ class Account(models.Model):
 # コメント用
 class Comment(models.Model):
     #コメント内容
-    text = models.TextField()
+    text = models.TextField(max_length=400)
     #コメント投稿者のアカウントニックネーム記録用
     posted_by = models.CharField(max_length=100)
     # コメント投稿者のアカウントid記録用
@@ -70,7 +70,7 @@ class Event(models.Model):
 class Idea(models.Model):
 
     title = models.CharField(max_length=128)
-    text = models.TextField()
+    text = models.TextField(max_length=400)
     posted_at = models.DateTimeField(auto_now_add=True)
     last_modify = models.DateTimeField(auto_now=True)
 
@@ -85,7 +85,7 @@ class Idea(models.Model):
 # コメント用
 class Idea_comment(models.Model):
     #コメント内容
-    text = models.TextField()
+    text = models.TextField(max_length=400)
     #コメント投稿者のアカウントニックネーム記録用
     posted_by = models.CharField(max_length=100)
     # コメント投稿者のアカウントid記録用

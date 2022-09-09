@@ -40,7 +40,6 @@
 <main class="form-signin w-50 m-auto">
     <form action="{% url 'Login' %}" method="POST">
         {% csrf_token %}
-      <h3 class="h3 mb-3 fw-normal">ログインはこちらから</h3>
         <!--アカウントIDとパスワードを入力-->
         <div class="form-floating">
           <!--labelのforとinput・textareaのidでそれぞれ紐付け、nameはpostしたときにviewで使う-->

@@ -38,13 +38,13 @@
 </div>
 
 <!-- アカウントに対するコメントを全件取得 -->
-<div class="container mb-5 justify-content-between">
+<div class="container mb-5 w-50">
     <h3>みんなからのメッセージ</h3>
     <ul class="list-group">
         {% for comment in Account.comments.all %}
         <li class="list-group-item">
             <small><small>{{ comment.posted_by }} - {{ comment.posted_at|date:"y/n/j"}}</small></small></br>
-            <div>{{ comment.text }}</div>
+            <div>{{ comment.text| linebreaksbr }}</div>
         </li>
         {% empty %}
         <p>メッセージはまだ届いていないようです</p>

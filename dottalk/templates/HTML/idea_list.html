@@ -22,27 +22,24 @@
 <!--フッターメニュー-->
 <div class="container-fluid bg-secondary fixed-bottom">
     <div class="row justify-content-center">
-        <div class="col-6 text-center">
+        <div class="col-8 text-center">
             <!--検索フォームの設置、言語に対して検索を行う用-->
             {% csrf_token %}
             <form action="" method="get" class="form-inline m-2">
+                <div class="row">
                 <div class="input-group">
+                    <div class="col-auto me-1">
+                        <button type="submit"  name="btn_my_Idea" class="btn btn-success">自分の投稿</button>
+                    </div>
+                    <div class="col-auto me-3">
+                        <button type="submit"  name="btn_reset" class="btn btn-success">リセット</button>
+                    </div>
+
                     <input name="query" value="{{ request.GET.query }}"
                            type="text" class="form-control text-wrap"
                            placeholder="Idea keyword">
                     <button type="submit" class="btn btn-success">検索</button>
                 </div>
-            </form>
-        </div>
-        <div class="col-4 text-center">
-            <form action="" method="get" class="form-inline m-2">
-                <div class="row">
-                    <div class="col-auto">
-                        <button type="submit"  name="btn_my_Idea" class="btn btn-success">自分の投稿</button>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit"  name="btn_reset" class="btn btn-success">リセット</button>
-                    </div>
                 </div>
             </form>
         </div>
@@ -52,28 +49,31 @@
 <!--ページの説明-->
 <div class="mt-3 mb-3">
     <div class="text-center">
-        <h10><p class="lh-lg">
+        <h5><p class="lh-lg">
             色々な人のアイデアを見て、コメントしてみよう。<mark>新しい視点が得られるかも。</mark>
-        </p></h10>
+        </p></h5>
     </div>
 </div>
-
+<div class="container">
+    <div class="row">
 <!--最大100件まで表示-->
 {% for Idea in object_list|slice:":100"%}
-<div class="card text-center mt-4">
-    <div class="card-header">
+
+  <div class="col-6">
+<div class="card text-center mt-4 border-secondary">
+    <div class="card-header border-secondary">
     <h5 class="card-title">{{ Idea.title }}</h5>
   </div>
   <div class="card-body">
-      <div class="text-start">
+      <div class="text-start text-truncate">
         <p class="card-text">{{ Idea.text }}</p>
       </div>
     <a class="stretched-link btn btn-outline-primary mt-3" href="{% url 'idea_detail' Idea.id %}">詳細ページへ</a>
   </div>
-  <div class="card-footer text-muted">
+  <div class="card-footer text-muted border-secondary">
     ニックネーム：{{ Idea.posted_by }}　　投稿日：{{ Idea.posted_at }}
   </div>
-</div>
+</div></div>
 {% empty %}
 <div class="mt-3 mb-4">
     <div class="text-center">
@@ -81,7 +81,7 @@
     </div>
 </div>
 {% endfor %}
-
+</div></div>
 <!--最大100件まで表示していることを示す。クリックでページトップへ-->
 <div class="mt-3 mb-5 pb-5">
     <div class="text-center mb-auto">

@@ -45,6 +45,14 @@ class AddAccountForm(forms.ModelForm):
                   'good_prog_language':"得意な言語",
                   'bad_prog_language':"教えてほしい言語",
         }
+        # placeholder
+        widgets = {
+            'university_name': forms.TextInput(attrs={'placeholder': '○○大学'}),
+            'campus_name': forms.TextInput(attrs={'placeholder': '××キャンパス'}),
+            'tweet': forms.TextInput(attrs={'placeholder': 'よろしく！'}),
+            'good_prog_language': forms.TextInput(attrs={'placeholder': 'Python'}),
+            'bad_prog_language': forms.TextInput(attrs={'placeholder': 'R, javascript'}),
+        }
 
 class EventForm(forms.Form):
     start_date = forms.IntegerField(required=True)

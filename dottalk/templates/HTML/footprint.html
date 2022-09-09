@@ -12,7 +12,7 @@
 <!--ヘッダーメニュー-->
 <nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
   <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
-    <a href="#" class="navbar-brand"><h3>あしあとリスト</h3></a>
+    <a href="#" class="navbar-brand"><h1>あしあとリスト</h1></a>
     <div class="navbar-nav">
         <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
     </div>
@@ -22,17 +22,19 @@
 <!--フッターメニュー-->
 <div class="container-fluid bg-secondary text-white fixed-bottom ">
     <div class="text-center">
-        <a class="stretched-link link-light text-decoration-none" href="#tag1">
-            返信が来ているかチェックしよう
-        </a>
+        <p>
+            <a class="stretched-link link-light text-decoration-none" href="#tag1">
+                コメントを送ったアカウント一覧　返信が来ているかチェックしよう
+            </a>
+        </p>
     </div>
 </div>
 
 <!--一致する他ユーザーのアカウントを並べる-->
-<div class="container mb-5">
+<div class="container mt-3 mb-5 w-80">
     <div class="row">
         {% for Account in object_list %}
-         <div class="col-4 text-center align-self-center mt-1 mb-1">
+         <div class="col-md-3 col-sm-6 text-center align-self-center  mt-1 mb-4 mx-auto">
              <div class="card border-secondary">
                  {% if Account.account_image %}
              <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>

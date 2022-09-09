@@ -16,6 +16,8 @@
             {% for Account in object_list|slice:":1" %}
           <h1><a class="link-light text-decoration-none" href="#">
               {{ Account.university_name }} - {{ Account.campus_name }}のプログラマー</a></h1>
+            {% empty %}
+            <h1>同じ大学・キャンパスのプログラマー</h1>
             {% endfor %}
         </div>
      </div>
@@ -26,7 +28,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-secondary fixed-bottom">
      <div class="collapse navbar-collapse justify-content-around" id="navmenu1">
          <div class="navbar-nav">
-             <a class="nav-item nav-link" href="{% url 'edit'%}">マイページ</a>
+             <a class="nav-item nav-link" href="{% url 'edit' %}">マイページ</a>
              <a class="nav-item nav-link" href="{% url 'footprint' %}">あしあと</a>
              <a class="nav-item nav-link" href="{% url 'calendar' %}">シェアカレンダー</a>
              <a class="nav-item nav-link" href="{% url 'idea_list' %}">アイデアの森</a>
@@ -46,11 +48,21 @@
     </nav>
 </div>
 
+<!--簡単な説明、mt mbで上下に余白を取ってる-->
+<div class="mt-3">
+    <div class="text-center">
+        <h5><p class="lh-lg">
+            <mark>身近なプログラマーと仲良くなろう</mark></br>
+            カードをクリックで各アカウントのトークルームに移動
+        </p></h5>
+    </div>
+</div>
+
 <!--一致する他ユーザーのアカウントを並べる-->
-<div class="container mb-5">
+<div class="container mt-3 mb-5 w-80">
     <div class="row">
         {% for Account in object_list %}
-         <div class="col-4 text-center align-self-center  mt-1 mb-4 mx-auto">
+         <div class="col-md-3 col-sm-6 text-center align-self-center  mt-1 mb-4 mx-auto">
              <div class="card border-secondary">
                  {% if Account.account_image %}
                  <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>

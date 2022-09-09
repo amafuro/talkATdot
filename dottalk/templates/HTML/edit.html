@@ -49,51 +49,65 @@
 </div>
 
 <!--アカウント情報の更新-->
-<div class="container mb-5">
+<div class="container mt-3 mb-5 w-50">
+    <h3>アカウント情報の更新</h3>
         <form action="" method="POST">
             {% csrf_token %}
             <!--labelのforとinput・textareaのidでそれぞれ紐付け、nameはpostしたときにviewで使う-->
             <div class="row">
                 <div>
                     <label for="nickname_input">ニックネーム</label></br>
-                    <input type="text" class="form-control" name="nickname" id="nickname_input" value="{{ Account.nickname }}">
+                    <input type="text" class="form-control"
+                           name="nickname" id="nickname_input"
+                           value="{{ Account.nickname }}">
                 </div>
                 <div class="col-6">
                     <label for="university_name_input">大学名</label></br>
-                    <input type="text" class="form-control" name="university_name" id="university_name_input" value="{{ Account.university_name }}">
+                    <input type="text" class="form-control"
+                           name="university_name" id="university_name_input"
+                           value="{{ Account.university_name }}" placeholder="○○大学">
                 </div>
                  <div class="col-6">
                     <label for="university_name_input">キャンパス名</label></br>
-                    <input type="text" class="form-control" name="campus_name" id="campus_name_input" value="{{ Account.campus_name }}">
+                    <input type="text" class="form-control"
+                           name="campus_name" id="campus_name_input"
+                           value="{{ Account.campus_name }}" placeholder="××キャンパス">
                  </div>
             </div>
             <div>
                 <label for="university_name_input">得意な言語</label></br>
-                <input type="text" class="form-control" name="good_prog_language" id="good_prog_language_input" value="{{ Account.good_prog_language }}">
+                <input type="text" class="form-control"
+                       name="good_prog_language" id="good_prog_language_input"
+                       value="{{ Account.good_prog_language }}" placeholder="Python">
             </div>
             <div>
                 <label for="university_name_input">教えてほしい言語</label></br>
-                <input type="text" class="form-control" name="bad_prog_language" id="bad_prog_language_input" value="{{ Account.bad_prog_language }}">
+                <input type="text" class="form-control"
+                       name="bad_prog_language" id="bad_prog_language_input"
+                       value="{{ Account.bad_prog_language }}" placeholder="R, javascript">
             </div>
             <div>
                 <label for="text_area">ひとこと</label></br>
-                    <textarea name="tweet" class="form-control" id="text_area">{{ Account.tweet }}</textarea>
+                    <input type="text" name="tweet" class="form-control"
+                           id="text_area" value="{{ Account.tweet }}"
+                           placeholder="よろしく！">
+
                 <div class="d-grid gap-2">
-                    <button class="btn btn-outline-success" name="btn_account_value" type="submit" id="button-addon">送信</button>
+                    <button class="btn btn-outline-success" name="btn_account_value" type="submit" id="button-addon">更新</button>
                 </div>
             </div>
         </form>
 </div>
 
 <!-- アカウントに対するコメントを全件取得 -->
-<div class="container mb-5">
+<div class="container mt-3 mb-5 w-50">
     <h3>みんなからのコメント</h3>
     <div class="justify-content-between">
         <ul class="list-group">
             {% for comment in Account.comments.all %}
             <li class="list-group-item">
                 <small><small>{{ comment.posted_by }} - {{ comment.posted_at|date:"y/n/j"}}</small></small></br>
-                <div>{{ comment.text }}</div>
+                <div>{{ comment.text| linebreaksbr }}</div>
             </li>
             {% empty %}
             <p>メッセージはまだ届いていないようです</p>

@@ -22,7 +22,7 @@
 <!--フッターメニュー-->
 <div class="container-fluid bg-secondary fixed-bottom">
     <div class="row justify-content-center">
-        <div class="col-8 text-center">
+        <div class="col-6 text-center">
             <!--検索フォームの設置、言語に対して検索を行う用-->
             {% csrf_token %}
             <form action="" method="get" class="form-inline m-2">
@@ -34,9 +34,16 @@
                 </div>
             </form>
         </div>
-        <div class="col-3 text-center">
+        <div class="col-4 text-center">
             <form action="" method="get" class="form-inline m-2">
-                <button type="submit"  name="btn_my_Idea" class="btn btn-success">自分の投稿のみ表示</button>
+                <div class="row">
+                    <div class="col-auto">
+                        <button type="submit"  name="btn_my_Idea" class="btn btn-success">自分の投稿</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit"  name="btn_reset" class="btn btn-success">リセット</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

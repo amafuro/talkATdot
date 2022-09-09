@@ -496,6 +496,9 @@ class idea_list(ListView,LoginRequiredMixin):
         if "btn_my_Idea" in self.request.GET:
             object_list = models.Idea.objects.filter(posted_by_id=loginuser.id).order_by('-posted_at')
 
+        elif "btn_reset" in self.request.GET:
+            object_list = models.Idea.objects.all().order_by('-posted_at')
+
         else :
             # 検索ワードがあれば一致するものを取得
             if q_word :

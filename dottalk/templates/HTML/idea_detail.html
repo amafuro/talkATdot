@@ -8,13 +8,16 @@
 </head>
 <body>
 
-<p><a href="{% url 'idea_list' %}">アイデア一覧に戻る</a></p>
-<p>アイデア詳細ページ{{ loginuserID }}</p>
-{% if loginuserID == Idea.posted_by_id %}
-<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">投稿を削除</button>
-{% else %}
-<button class="btn btn-secondary btn-lg disabled">投稿を削除</button>
-{% endif %}
+<!--ヘッダーメニュー-->
+<nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
+  <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
+    <a href="#" class="navbar-brand"><h1>アイデア詳細ページ</h1></a>
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{% url 'idea_list' %}">アイデア一覧に戻る</a>
+        <a class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">投稿を削除</a>
+    </div>
+  </div>
+</nav>
 
 <!-- モーダル(アカウント削除の確認用)の設定 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
@@ -25,21 +28,36 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
       </div>
       <div class="modal-body">
-        <p>アイデア投稿を削除します。よろしいですか？</p>
+        <p>アイデア投稿を削除します。削除は投稿者のみが可能です。</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-        <a class="btn btn-danger" href="{% url 'idea_delete' Idea.id %}" role="button">削除</a>
+          <!--ログイン中のユーザーと投稿者が一致した場合のみ削除ボタン有効化-->
+          {% if loginuserID == Idea.posted_by_id %}
+          <a class="btn btn-danger" href="{% url 'idea_delete' Idea.id %}" role="button">削除</a>
+          {% else %}
+          <button class="btn btn-secondary disabled">削除</button>
+          {% endif %}
       </div>
     </div>
   </div>
 </div>
 
-<h3>{{ Idea.title }}</h3>
-    <small>投稿日時 : {{ Idea.posted_at }}</small>
-    <small>最終更新 : {{ Idea.last_modify }}</small>
-    <small>投稿者 : {{ Idea.posted_by }}</small>
-    <p>{{ Idea.text }}</p>
+<!--投稿詳細-->
+<div class="container mt-3 mb-5 justify-content-between">
+    <div class="text-center">
+        <h2>{{ Idea.title }}</h2>
+    </div>
+    <div class="text-end">
+        <small class="text-muted" >投稿者 : {{ Idea.posted_by }}</small></br>
+        <small class="text-muted" >投稿日時 : {{ Idea.posted_at }}</small></br>
+        <small class="text-muted" >最終更新 : {{ Idea.last_modify }}</small>
+    </div>
+    <!--投稿本文-->
+    <div class="border-top border-bottom text-wrap text-break mt-3">
+        {{ Idea.text }}
+    </div>
+</div>
 
 <!-- アイデアに対するコメントを全件取得 -->
 <div class="container mb-5 justify-content-between">

@@ -3,7 +3,7 @@ import os
 #settings.pyからそのままコピー
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = '1f6stt_sr7rf9)p*ox8at1065js=3ju!z&yvb+duj_k_vbc%%r'
+SECRET_KEY = 'django-insecure-&+fd6gh(m^@t*1*%+0x_0=^qb)_7+s5b$kub&-10)l&$nkc7d7'
 
 #settings.pyからそのままコピー
 DATABASES = {

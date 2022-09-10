@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # 元となるパスを設定しておき、各種パスを定義するのに使う。 BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +34,7 @@ SECRET_KEY = 'django-insecure-&+fd6gh(m^@t*1*%+0x_0=^qb)_7+s5b$kub&-10)l&$nkc7d7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #CSS適用の為に必要
 ]
 
 ROOT_URLCONF = 'talkATdot_manage.urls'
@@ -87,14 +89,27 @@ WSGI_APPLICATION = 'talkATdot_manage.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+"""
+herokuだとsqlite3が動かない
+herokuで使えるpostgresql_psycopg2にする
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+"""
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'name',
+        'USER': 'user',
+        'PASSWORD': '',
+        'HOST': 'host',
+        'PORT': '',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -156,3 +171,14 @@ STATICFILES_DIRS = [STATIC_DIR,]
 #アカウント登録時の画像を保存するディレクトリ
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
+
+#ローカル環境のみDEBUGを有効にする
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    SECRET_KEY = os.environ['1f6stt_sr7rf9)p*ox8at1065js=3ju!z&yvb+duj_k_vbc%%r']
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

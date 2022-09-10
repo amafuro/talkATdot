@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 import dj_database_url
 
@@ -171,7 +171,7 @@ STATICFILES_DIRS = [STATIC_DIR,]
 #アカウント登録時の画像を保存するディレクトリ
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
-
+"""
 #ローカル環境のみDEBUGを有効にする
 try:
     from .local_settings import *
@@ -179,14 +179,15 @@ except ImportError:
     pass
 
 if not DEBUG:
-    SECRET_KEY = os.environ['1f6stt_sr7rf9)p*ox8at1065js=3ju!z&yvb+duj_k_vbc%%r']
+    SECRET_KEY = os.environ['1f6stt_sr7rf9)p*ox8at1065js=3ju!z&yvb+duj_k_vbc%%r']"""
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 
+"""
 if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku #追加
-    django_heroku.settings(locals()) #追加
+    django_heroku.settings(locals()) #追加"""

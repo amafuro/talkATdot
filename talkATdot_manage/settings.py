@@ -18,12 +18,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # 各種絶対パスを定義しておく
 TEMPLATE_DIR = BASE_DIR / "templates"
+
 STATIC_DIR = BASE_DIR / "static"
+# ここにBootstrapを入れる
+STATIC_URL = '/static/'
+#ローカル環境で{% static %}タグを使った際に見に行く先のフォルダ
+#collectstaticを実行した際に見に行くフォルダ
+STATICFILES_DIRS = [STATIC_DIR,]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_DIR = BASE_DIR / "media"
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+#アカウント登録時の画像を保存するディレクトリ
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = "/media/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -164,17 +171,12 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# ここにBootstrapを入れる
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR,]
 
-#アカウント登録時の画像を保存するディレクトリ
-MEDIA_ROOT = MEDIA_DIR
-MEDIA_URL = "/media/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
+
 """
 #ローカル環境のみDEBUGを有効にする
 try:

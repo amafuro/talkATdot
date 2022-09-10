@@ -29,7 +29,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_DIR = BASE_DIR / "media"
 #アカウント登録時の画像を保存するディレクトリ
-MEDIA_ROOT = MEDIA_DIR
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
 
 # Quick-start development settings - unsuitable for production

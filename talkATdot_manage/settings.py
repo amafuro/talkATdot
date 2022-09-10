@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -172,20 +172,15 @@ STATICFILES_DIRS = [STATIC_DIR,]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_from_env)
+
 #ローカル環境のみDEBUGを有効にする
 try:
     from .local_settings import *
 except ImportError:
     pass
-
-if not DEBUG:
-    SECRET_KEY = os.environ['1f6stt_sr7rf9)p*ox8at1065js=3ju!z&yvb+duj_k_vbc%%r']
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default'].update(db_from_env)
-
 
 if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']

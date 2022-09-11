@@ -457,7 +457,7 @@ def idea_detail(request,id):
                                            posted_by=loginuser.nickname,
                                            posted_by_id=loginuser.id,
                                            posted_to_id=Idea.id,
-                                           Idea=Idea)
+                                           Account=Idea)
         # コメントが投稿されたら、投稿されたアイデアの方の更新日も更新する
         Idea.save()
     context = {"Idea":Idea,

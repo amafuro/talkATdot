@@ -2,8 +2,10 @@
 モデルを更新したらこの2つは必ずコンソールで行う
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser
 
 python manage.py runserver
+
 """
 
 
@@ -40,7 +42,7 @@ class Account(models.Model):
     account_image = models.ImageField(upload_to="image_directory_path",blank=True)
 
     def __str__(self):
-        return self.user
+        return str(self.user)
 
 # コメント用
 class Comment(models.Model):

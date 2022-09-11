@@ -29,7 +29,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_DIR = BASE_DIR / "media"
 #アカウント登録時の画像を保存するディレクトリ
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = "/media/"
 
 # Quick-start development settings - unsuitable for production
@@ -98,15 +98,15 @@ WSGI_APPLICATION = 'talkATdot_manage.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 """
 herokuだとsqlite3が動かない
-herokuで使えるpostgresql_psycopg2にする
+herokuで使えるpostgresql_psycopg2にする"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -116,7 +116,7 @@ DATABASES = {
         'HOST': 'host',
         'PORT': '',
     }
-}
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -138,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         #パスワードの最低文字数を指定しておく
-        #'OPTIONS':{"min_length":6},
+        'OPTIONS':{"min_length":6},
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',

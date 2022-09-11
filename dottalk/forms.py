@@ -20,10 +20,11 @@ class AccountForm(forms.ModelForm):
         # ユーザー認証
         model = User
         # フィールド指定
-        fields = ('username','password')
+        fields = ('username','email','password')
         # フィールド名指定
         labels = {'username':"ユーザーID",
-                  'password':"パスワード",}
+                  'password':"パスワード",
+                  'email':"メール",}
 
 class AddAccountForm(forms.ModelForm):
 

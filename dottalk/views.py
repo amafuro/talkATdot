@@ -234,7 +234,7 @@ def infomation(request):
 def edit(request):
     template_name = "HTML/edit.html"
     try:
-        Account = models.Account.objects.get(id=request.user.id)
+        Account = models.Account.objects.get(user=request.user)
     except models.Account.DoesNotExist:
         raise Http404
     if request.method == "POST":

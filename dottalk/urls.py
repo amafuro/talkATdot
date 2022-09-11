@@ -36,5 +36,7 @@ urlpatterns = [
     #アイデア削除用
     path("idea_delete/<int:id>/",views.idea_delete,name="idea_delete"),
 ]
+
 #アカウント画像を表示する際にURLを反映する
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

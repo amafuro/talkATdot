@@ -29,10 +29,8 @@ MEDIA_URL = "/media/"
 #collectstaticを実行した際に見に行くフォルダ
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [STATIC_DIR,]
-
 #アカウント登録時の画像を保存するディレクトリ
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+MEDIA_ROOT = MEDIA_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -65,13 +63,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #CSS適用の為に必要
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', #CSS適用の為に必要
 ]
 
 ROOT_URLCONF = 'talkATdot_manage.urls'
@@ -100,15 +98,15 @@ WSGI_APPLICATION = 'talkATdot_manage.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 """
 herokuだとsqlite3が動かない
-herokuで使えるpostgresql_psycopg2にする
+herokuで使えるpostgresql_psycopg2にする"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 """
-""""""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -119,7 +117,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

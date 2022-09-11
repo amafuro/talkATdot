@@ -23,14 +23,14 @@ STATIC_DIR = BASE_DIR / "static"
 MEDIA_DIR = BASE_DIR / "media"
 
 STATIC_URL = '/static/'
-MEDIA_URL = "/media/"
+MEDIA_URL = "https://talkatdot.herokuapp.com/media/"
 
 #ローカル環境で{% static %}タグを使った際に見に行く先のフォルダ
 #collectstaticを実行した際に見に行くフォルダ
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [STATIC_DIR,]
 #アカウント登録時の画像を保存するディレクトリ
-MEDIA_ROOT = MEDIA_DIR
+MEDIA_ROOT = "https://talkatdot.herokuapp.com/media/"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/

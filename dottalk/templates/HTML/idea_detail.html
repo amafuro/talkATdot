@@ -46,7 +46,7 @@
 </div>
 
 <!--投稿詳細-->
-<div class="container mt-3 mb-5 w-50">
+<div class="container mt-3 mb-5 w-80">
     <div class="text-center">
         <h3>{{ Idea.title }}</h3>
     </div>
@@ -61,7 +61,7 @@
 </div>
 
 <!-- アイデアに対するコメントを全件取得 -->
-<div class="container mb-5 w-50">
+<div class="container mb-5 w-80">
     <h3>みんなからのメッセージ</h3>
     <ul class="list-group">
         {% for idea_comment in Idea.idea_comments.all %}

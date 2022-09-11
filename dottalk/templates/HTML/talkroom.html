@@ -25,13 +25,13 @@
 <div class="container-fluid bg-secondary text-white text-center fixed-bottom">
     <a class="stretched-link link-light text-decoration-none" href="#tag1">
         <div class="row justify-content-between">
-            <div class="col">
+            <div class="col-auto">
                 任せて！：{{ Account.good_prog_language }}
             </div>
-            <div class="col">
+            <div class="col-auto">
                 教えて～：{{ Account.bad_prog_language }}
             </div>
-            <div class="col">
+            <div class="col-auto">
                 ひとこと：{{ Account.tweet }}
             </div>
         </div>
@@ -39,7 +39,7 @@
 </div>
 
 <!-- アカウントに対するコメントを全件取得 -->
-<div class="container mb-5 w-50">
+<div class="container mb-5 w-80">
     <h3>みんなからのメッセージ</h3>
     <ul class="list-group">
         {% for comment in Account.comments.all %}

@@ -14,7 +14,7 @@ urlpatterns = [
     #お問い合わせ先ページ
     path("infomation",views.infomation,name="infomation"),
     #アカウントの編集ページ
-    path("edit",views.edit,name="edit"),
+    path("edit/",views.edit,name="edit"),
     #アカウント削除リンク
     path("edit/delete/",views.delete,name="delete"),
     #あしあと表示用

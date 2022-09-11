@@ -110,11 +110,11 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'name',
-        'USER': 'user',
-        'PASSWORD': '',
+        'NAME': 'talatdot',
+        'USER': 'amafuro',
+        'PASSWORD': 'naoki8739',
         'HOST': 'host',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -138,7 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         #パスワードの最低文字数を指定しておく
-        'OPTIONS':{"min_length":6},
+        #'OPTIONS':{"min_length":6},
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',

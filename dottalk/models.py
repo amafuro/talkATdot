@@ -96,8 +96,8 @@ class Idea_comment(models.Model):
     posted_to_id = models.IntegerField()
     # コメント投稿日時
     posted_at = models.DateTimeField(auto_now_add=True)
-    #アカウントへのリレーション
-    Account = models.ForeignKey(to=Idea, related_name='idea_comments', on_delete=models.CASCADE)
+    #アイデアへのリレーション
+    Idea = models.ForeignKey(to=Idea, related_name='idea_comments', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

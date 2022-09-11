@@ -203,6 +203,7 @@ class same_campus_users(ListView,LoginRequiredMixin):
 
 
 #各アカウントのトークルーム
+@login_required
 def talkroom(request, id):
     template_name = "HTML/talkroom.html"
     try:
@@ -456,7 +457,7 @@ def idea_detail(request,id):
                                            posted_by=loginuser.nickname,
                                            posted_by_id=loginuser.id,
                                            posted_to_id=Idea.id,
-                                           Account=Idea)
+                                           Idea=Idea)
         # コメントが投稿されたら、投稿されたアイデアの方の更新日も更新する
         Idea.save()
     context = {"Idea":Idea,
@@ -521,3 +522,4 @@ def idea_delete(request,id):
         #選択されたイベントがなければ404を返す
         raise Http404
     return HttpResponseRedirect(reverse('idea_list'))
+

@@ -39,7 +39,7 @@ MEDIA_ROOT = MEDIA_DIR
 SECRET_KEY = 'django-insecure-&+fd6gh(m^@t*1*%+0x_0=^qb)_7+s5b$kub&-10)l&$nkc7d7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -98,15 +98,15 @@ WSGI_APPLICATION = 'talkATdot_manage.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 """
 herokuだとsqlite3が動かない
-herokuで使えるpostgresql_psycopg2にする
+herokuで使えるpostgresql_psycopg2にする"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 """
-""""""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -117,7 +117,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

@@ -30,33 +30,55 @@
     <nav class="navbar navbar-expand navbar-dark bg-secondary fixed-bottom">
      <div class="collapse navbar-collapse justify-content-around" id="navmenu1">
          <div class="navbar-nav">
-             <a class="nav-item nav-link" href="{% url 'edit' %}">マイページ</a>
-             <a class="nav-item nav-link" href="{% url 'footprint' %}">あしあと</a>
-             <a class="nav-item nav-link" href="{% url 'calendar' %}">シェアカレンダー</a>
-             <a class="nav-item nav-link" href="{% url 'idea_list' %}">アイデアの森</a>
-             <a class="nav-item nav-link" href="{% url 'Logout' %}">ログアウト</a>
-             <!--検索フォームの設置、言語に対して検索を行う用-->
-             {% csrf_token %}
-             <form action="same_users_all" method="get" class="form-inline">
-                 <div class="input-group">
-                     <input name="query" value="{{ request.GET.query }}"
-                            type="text" class="form-control text-wrap"
-                            placeholder="Keyword">
-                     <button type="submit" class="btn btn-success">検索</button>
+             <div class="row justify-content-center">
+                <div class="col-auto">
+                    <a class="nav-item nav-link" href="{% url 'edit' %}">マイページ</a>
+                </div>
+                <div class="col-auto">
+                    <a class="nav-item nav-link" href="{% url 'footprint' %}">あしあと</a>
+                </div>
+                <div class="col-auto">
+                    <a class="nav-item nav-link" href="{% url 'calendar' %}">シェアカレンダー</a>
+                </div>
+                <div class="col-auto">
+                    <a class="nav-item nav-link" href="{% url 'idea_list' %}">アイデアの森</a>
+                </div>
+                 <div class="col-auto">
+                    <a class="nav-item nav-link" href="{% url 'Logout' %}">ログアウト</a>
                  </div>
-             </form>
+                <!--検索フォームの設置、言語に対して検索を行う用-->
+                 <div class="col-auto">
+                     {% csrf_token %}
+                    <form action="same_users_all" method="get" class="form-inline">
+                        <div class="input-group">
+                            <input name="query" value="{{ request.GET.query }}"
+                                   type="text" class="form-control text-wrap"
+                                   placeholder="Keyword">
+                            <button type="submit" class="btn btn-success">検索</button>
+                        </div>
+                    </form>
+                 </div>
+             </div>
          </div>
      </div>
     </nav>
 </div>
 
 <!--簡単な説明、mt mbで上下に余白を取ってる-->
-<div class="mt-3">
+<div class="container-fluid mt-3 mb-3">
     <div class="text-center">
-        <h5><p class="lh-lg">
-            <mark>身近なプログラマーと仲良くなろう</mark></br>
-            カードをクリックで各アカウントのトークルームに移動
-        </p></h5>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <h5><p>
+                    <mark>身近なプログラマーと仲良くなろう</mark>。
+                </p></h5>
+            </div>
+            <div class="col-auto">
+                <h5><p>
+                    カードをクリックで各アカウントのトークルームに移動
+                </p></h5>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -14,8 +14,14 @@
   <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
     <a href="#" class="navbar-brand"><h1>アイデアの森</h1></a>
     <div class="navbar-nav">
-        <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧に戻る</a>
-        <a class="nav-item nav-link" href="{% url 'idea_new' %}">アイデアを投稿する</a>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
+            </div>
+            <div class="col-auto">
+                <a class="nav-item nav-link" href="{% url 'idea_new' %}">アイデアを投稿する</a>
+            </div>
+        </div>
     </div>
   </div>
 </nav>
@@ -35,7 +41,6 @@
                     <div class="col-auto me-3">
                         <button type="submit"  name="btn_reset" class="btn btn-success">リセット</button>
                     </div>
-
                     <input name="query" value="{{ request.GET.query }}"
                            type="text" class="form-control text-wrap"
                            placeholder="Idea keyword">
@@ -48,11 +53,20 @@
 </div>
 
 <!--ページの説明-->
-<div class="mt-3 mb-3">
+<div class="container-fluid mt-3 mb-3">
     <div class="text-center">
-        <h5><p class="lh-lg">
-            色々な人のアイデアを見て、コメントしてみよう。<mark>新しい視点が得られるかも。</mark>
-        </p></h5>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <h5><p>
+                    色々な人のアイデアを見て、コメントしてみよう。
+                </p></h5>
+            </div>
+            <div class="col-auto">
+                <h5><p>
+                    <mark>新しい視点が得られるかも。</mark>
+                </p></h5>
+            </div>
+        </div>
     </div>
 </div>
 <div class="container">

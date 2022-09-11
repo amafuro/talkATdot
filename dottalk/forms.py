@@ -38,13 +38,16 @@ class AddAccountForm(forms.ModelForm):
         # モデルクラスを指定
         model = Account
         fields = ('nickname','university_name','campus_name','tweet',
-                  'good_prog_language','bad_prog_language','account_image',)
+                  'good_prog_language','bad_prog_language',
+                  #herokuが画像に対応していなかったためコメントアウト
+                  # 'account_image',
+                  )
         labels = {'nickname':"ニックネーム",
                   'university_name':"大学名",'campus_name':"キャンパス名",
-                  'account_image':"写真アップロード",
                   'tweet':"ひとこと",
                   'good_prog_language':"得意な言語",
                   'bad_prog_language':"教えてほしい言語",
+                  #'account_image':"写真アップロード",
         }
         # placeholder
         widgets = {

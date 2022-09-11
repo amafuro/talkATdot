@@ -66,12 +66,15 @@
         {% for Account in object_list %}
          <div class="col-md-3 col-sm-6 text-center align-self-center  mt-1 mb-4 mx-auto">
              <div class="card border-secondary">
+                 <!--herokuだと画像が対応していないためコメントアウト
+                 サービスを変更するタイミングがあったら使う
                  {% if Account.account_image %}
                  <img src="{{ Account.account_image.url }}" alt="" class="img-fluid"></br>
                  {% else %}
-                 <!--chromeのキャッシュが残っていると画像が更新されないことがあった「キャッシュの消去とハード再読み込み」で解決-->
+                 chromeのキャッシュが残っていると画像が更新されないことがあった「キャッシュの消去とハード再読み込み」で解決
                  <img src="/media/default_profile_pic.png" alt="" class="img-fluid"></br>
                  {% endif %}
+                 -->
                  <div class="card-header bg-success">
                      <big><a class="stretched-link link-light text-decoration-none"
                              href="{% url 'talkroom' Account.id %}">{{ Account.nickname }}</a></big>

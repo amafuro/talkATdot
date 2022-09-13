@@ -15,16 +15,23 @@
 <body>
 
 <!--ヘッダーメニュー-->
-<nav class="navbar navbar-expand navbar-dark  sticky-top" style="background-color: #1c8454;">
-  <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
+<nav class="navbar navbar-expand-md navbar-dark  sticky-top justify-content-center" style="background-color: #1c8454;">
+  <div class="row">
     <a href="#" class="navbar-brand"><h1>シェアカレンダー</h1></a>
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
-        <a class="nav-item nav-link" href="{% url 'event_list' %}">イベント一覧へ</a>
-    </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event_list' %}">イベント一覧へ</a>
+        </li>
+    </ul></div>
   </div>
 </nav>
-
 <!--ページの説明-->
 <div class="container-fluid mt-3 mb-3">
     <div class="text-center">

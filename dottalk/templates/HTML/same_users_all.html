@@ -17,9 +17,9 @@
         <div class="top_inner text-white d-flex justify-content-center">
             {% for Account in object_list|slice:":1" %}
           <h1><a class="link-light text-decoration-none" href="#">
-              {{ Account.university_name }} - {{ Account.campus_name }}のプログラマー</a></h1>
+              {{ Account.university_name }} - {{ Account.campus_name }}</a></h1>
             {% empty %}
-            <h1>同じ大学・キャンパスのプログラマー</h1>
+            <h1>同じ大学 - キャンパス</h1>
             {% endfor %}
         </div>
      </div>
@@ -70,12 +70,17 @@
         <div class="row justify-content-center">
             <div class="col-auto">
                 <h5><p>
-                    <mark>身近なプログラマーと仲良くなろう</mark>。
+                    <mark>身近なプログラマーと仲良くなろう</mark>
                 </p></h5>
             </div>
             <div class="col-auto">
                 <h5><p>
-                    カードをクリックで各アカウントのトークルームに移動
+                    カードをクリックで
+                </p></h5>
+            </div>
+            <div class="col-auto">
+                <h5><p>
+                    各アカウントのトークルームに移動
                 </p></h5>
             </div>
         </div>
@@ -110,7 +115,7 @@
         {% empty %}
         <div class="mt-3 mb-4">
             <div class="text-center">
-                <h10><p>まだ他にユーザーはいないようです</p></h10>
+                <h10><p>まだキャンパス内に他にユーザーはいないようです</p></h10>
             </div>
         </div>
         {% endfor %}

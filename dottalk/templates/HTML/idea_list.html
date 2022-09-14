@@ -21,20 +21,20 @@
   </div>
 </nav>
 
-<!--フッターメニュー-->
+<!--フッターメニュー
 <div class="container-fluid bg-secondary fixed-bottom">
     <div class="row justify-content-center">
         <div class="col-8 text-center">
-            <!--検索フォームの設置、言語に対して検索を行う用-->
+            検索フォームの設置、言語に対して検索を行う用
             {% csrf_token %}
             <form action="" method="get" class="form-inline m-2">
                 <div class="row">
                 <div class="input-group">
                     <div class="col-auto me-1">
-                        <button type="submit"  name="btn_my_Idea" class="btn btn-success">自分の投稿</button>
+                        <button type="submit"  name="btn_my_Idea" class="btn btn-secondary">自分の投稿</button>
                     </div>
                     <div class="col-auto me-3">
-                        <button type="submit"  name="btn_reset" class="btn btn-success">リセット</button>
+                        <button type="submit"  name="btn_reset" class="btn btn-secondary">リセット</button>
                     </div>
                     <input name="query" value="{{ request.GET.query }}"
                            type="text" class="form-control text-wrap"
@@ -46,9 +46,40 @@
         </div>
     </div>
 </div>
+-->
+<!--フッターメニュー-->
+<div class="container-fluid">
+    <nav class="navbar navbar-expand navbar-dark bg-secondary fixed-bottom">
+     <div class="collapse navbar-collapse justify-content-around">
+         <div class="navbar-nav">
+             <div class="row justify-content-center">
+                <div class="col-auto">
+                    <button type="submit"  name="btn_my_Idea" class="btn btn-secondary text-white-50">自分の投稿</button>
+                </div>
+                 <div class="col-auto">
+                    <button type="submit"  name="btn_reset" class="btn btn-secondary text-white-50">リセット</button>
+                </div>
+                <!--検索フォームの設置、言語に対して検索を行う用-->
+                 <div class="col-auto">
+                     {% csrf_token %}
+                    <form action="same_users_all" method="get" class="form-inline">
+                        <div class="input-group">
+                            <input name="query" value="{{ request.GET.query }}"
+                                   type="text" class="form-control text-wrap"
+                                   placeholder="Idea keyword">
+                            <button type="submit" class="btn btn-success">検索</button>
+                        </div>
+                    </form>
+                 </div>
+             </div>
+         </div>
+     </div>
+    </nav>
+</div>
+
 
 <!--ページの説明-->
-<div class="container-fluid mt-3 mb-3">
+<div class="container-fluid mt-3">
     <div class="text-center">
         <div class="row justify-content-center">
             <div class="col-auto">
@@ -58,12 +89,12 @@
             </div>
             <div class="col-auto">
                 <h5><p>
-                    コメントしてみよう。
+                    コメントしてみよう
                 </p></h5>
             </div>
             <div class="col-auto">
                 <h5><p>
-                    <mark>新しい視点が得られるかも。</mark>
+                    <mark>新しい視点が得られるかも</mark>
                 </p></h5>
             </div>
         </div>

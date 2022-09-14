@@ -54,11 +54,15 @@
          <div class="navbar-nav">
              <div class="row justify-content-center">
                 <div class="col-auto">
-                    <button type="submit"  name="btn_my_Idea" class="btn btn-secondary text-white-50">自分の投稿</button>
+                    <form action="same_users_all" method="get" class="form-inline">
+                        <button type="submit"  name="btn_my_Idea" class="btn btn-secondary text-white-50">自分の投稿</button>
+                    </form>
                 </div>
                  <div class="col-auto">
-                    <button type="submit"  name="btn_reset" class="btn btn-secondary text-white-50">リセット</button>
-                </div>
+                     <form action="same_users_all" method="get" class="form-inline">
+                         <button type="submit"  name="btn_reset" class="btn btn-secondary text-white-50">リセット</button>
+                     </form>
+                 </div>
                 <!--検索フォームの設置、言語に対して検索を行う用-->
                  <div class="col-auto">
                      {% csrf_token %}

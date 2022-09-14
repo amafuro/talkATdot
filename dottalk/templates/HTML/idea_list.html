@@ -54,19 +54,19 @@
          <div class="navbar-nav">
              <div class="row justify-content-center">
                 <div class="col-auto">
-                    <form action="same_users_all" method="get" class="form-inline">
+                    <form action="" method="get" class="form-inline">
                         <button type="submit"  name="btn_my_Idea" class="btn btn-secondary text-white-50">自分の投稿</button>
                     </form>
                 </div>
                  <div class="col-auto">
-                     <form action="same_users_all" method="get" class="form-inline">
+                     <form action="" method="get" class="form-inline">
                          <button type="submit"  name="btn_reset" class="btn btn-secondary text-white-50">リセット</button>
                      </form>
                  </div>
                 <!--検索フォームの設置、言語に対して検索を行う用-->
                  <div class="col-auto">
                      {% csrf_token %}
-                    <form action="same_users_all" method="get" class="form-inline">
+                    <form action="" method="get" class="form-inline">
                         <div class="input-group">
                             <input name="query" value="{{ request.GET.query }}"
                                    type="text" class="form-control text-wrap"

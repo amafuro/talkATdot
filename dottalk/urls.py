@@ -27,6 +27,7 @@ urlpatterns = [
     path("calendar/event_list/",views.calendar_event_list.as_view(),name="event_list"),
     path("event_edit/<int:id>/",views.event_edit,name="event_edit"),
     path("event_edit/<int:id>/delete/",views.event_delete,name="event_delete"),
+    path("event_new",views.event_new,name="event_new"),
     #アイデア出し詳細ページ
     path("idea_detail/<int:id>/",views.idea_detail,name="idea_detail"),
     #アイデア投稿ページ

@@ -429,6 +429,19 @@ def event_edit(request, id):
     context = {"Event":Event}
     return render(request,template_name,context)
 
+#イベント作成
+@login_required
+def event_new(request):
+    template_name = "HTML/event_new.html"
+    if request.method == "POST":
+        if "btn_event_new" in request.POST:
+            # データベースに投稿されたイベントを保存
+            models.Event.objects.create(event_name=request.POST["event_name"],
+                                          start_date=request.POST["start_date"],
+                                          end_date =request.POST["end_date"])
+            return redirect("calendar")
+    return render(request,template_name)
+
 #カレンダーイベントの削除
 @login_required
 def event_delete(request,id):

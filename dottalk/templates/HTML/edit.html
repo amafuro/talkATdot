@@ -20,6 +20,24 @@
   </div>
 </nav>
 
+<!--ヘッダーメニュー-->
+<nav class="navbar navbar-expand-md navbar-dark bg-success sticky-top justify-content-center">
+  <div class="row justify-content-center" id="navmenu1">
+      <div class="input-group justify-content-center">
+          <a href="#" class="navbar-brand"><h1>マイアカウント</h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+              <div class="navbar-nav">
+                  <a class="nav-item nav-link" href="{% url 'same_users_all' %}">アカウント一覧へ戻る</a>
+                  <a class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">アカウントの削除</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</nav>
+
 <!-- モーダル(アカウント削除の確認用)の設定 -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
   <div class="modal-dialog">

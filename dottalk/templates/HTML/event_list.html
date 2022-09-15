@@ -81,7 +81,7 @@
         </td>
         <td>
             <!--日程-->
-            <div class="text-center">{{ Event.start_date }}　～　{{ Event.end_date }}</div>
+            <div class="text-center">{{ Event.start_date|date:"Mj日(D)" }}　～　{{ Event.end_date|date:"Mj日(D)" }}</div>
         </td>
         <td>
             <a class="btn btn-primary" role="button" href="{% url 'event_edit' Event.id %}">編集</a>

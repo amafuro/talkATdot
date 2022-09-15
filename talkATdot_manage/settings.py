@@ -37,7 +37,7 @@ MEDIA_ROOT = MEDIA_DIR
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -96,15 +96,15 @@ WSGI_APPLICATION = 'talkATdot_manage.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 """
 herokuだとsqlite3が動かない
-herokuで使えるpostgresql_psycopg2にする
+herokuで使えるpostgresql_psycopg2にする"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 """
-""""""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -115,7 +115,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

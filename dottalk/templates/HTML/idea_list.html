@@ -87,7 +87,7 @@
     <div class="row">
         <!--最大100件まで表示-->
         {% for Idea in object_list|slice:":100"%}
-        <div class="col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-12">
             <div class="card text-center mt-4 border-secondary text-truncate">
                 <div class="card-header border-secondary">
                     <h5 class="card-title">{{ Idea.title }}</h5>

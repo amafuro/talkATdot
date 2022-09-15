@@ -406,6 +406,10 @@ class calendar_event_list (ListView,LoginRequiredMixin):
                 queryset = models.Event.objects.filter(Q(event_name__icontains=q_word)).order_by("start_date")
             else:
                 queryset = models.Event.objects.filter(start_date__range=[ datetime.datetime.now(),one_week_after]).order_by("start_date")
+            #イベント終了日を-1して表示
+            #フルカレンダーは最終日＋１しないとうまく表示できないため
+            for obj in queryset:
+                obj.end_date = obj.end_date + datetime.timedelta(days=-1)
 
         return queryset
 
@@ -415,15 +419,21 @@ def event_edit(request, id):
     template_name = "HTML/event_edit.html"
     try:
         #選択されたイベントの情報を取得する
+        # イベント終了日を-1して表示
         Event = models.Event.objects.get(id=id)
+        Event.end_date = Event.end_date + datetime.timedelta(days=-1)
     except models.Event.DoesNotExist:
         #選択されたイベントがなければ404を返す
         raise Http404
     if request.method == "POST":
         if "btn_event_edit" in request.POST:
-            Event.event_name=request.POST["event_name"]
+            Event.event_name = request.POST["event_name"]
+            # イベント終了日を＋１して登録
+            # フルカレンダーは最終日＋１しないとうまく表示できないため
+            end_date = request.POST["end_date"]
+            end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d') + datetime.timedelta(days=1)
             Event.start_date = request.POST["start_date"]
-            Event.end_date = request.POST["end_date"]
+            Event.end_date = end_date
             Event.save()
             return redirect("calendar")
     context = {"Event":Event}
@@ -435,10 +445,13 @@ def event_new(request):
     template_name = "HTML/event_new.html"
     if request.method == "POST":
         if "btn_event_new" in request.POST:
+            start_date = request.POST["start_date"]
+            end_date =request.POST["end_date"]
+            end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d') + datetime.timedelta(days=1)
             # データベースに投稿されたイベントを保存
             models.Event.objects.create(event_name=request.POST["event_name"],
-                                          start_date=request.POST["start_date"],
-                                          end_date =request.POST["end_date"])
+                                        start_date=start_date,
+                                        end_date=end_date)
             return redirect("calendar")
     return render(request,template_name)
 

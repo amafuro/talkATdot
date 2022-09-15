@@ -10,14 +10,21 @@
 </head>
 <body>
 
-<!--フッターメニュー-->
-<nav class="navbar navbar-expand navbar-dark bg-success sticky-top">
-  <div class="collapse navbar-collapse justify-content-center" id="navmenu1">
-    <a href="#" class="navbar-brand"><h3>イベントの編集</h3></a>
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" href="{% url 'calendar' %}">カレンダーへ戻る</a>
-        <a class="nav-item nav-link" href="{% url 'event_list' %}">イベント一覧へ戻る</a>
-    </div>
+<!--ヘッダーメニュー-->
+<nav class="navbar navbar-expand-md navbar-dark bg-success sticky-top justify-content-center">
+  <div class="row justify-content-center" id="navmenu1">
+      <div class="input-group justify-content-center">
+          <a href="#" class="navbar-brand"><h1>あしあと</h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+              <div class="navbar-nav">
+                  <a class="nav-item nav-link" href="{% url 'calendar' %}">カレンダーへ戻る</a>
+                  <a class="nav-item nav-link" href="{% url 'event_list' %}">イベント一覧へ戻る</a>
+              </div>
+          </div>
+      </div>
   </div>
 </nav>
 

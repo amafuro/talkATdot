@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        contentHeight:'auto',
         locale: 'ja',
         dayCellContent: function(e) {
             e.dayNumberText = e.dayNumberText.replace('日', '');

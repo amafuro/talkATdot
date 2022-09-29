@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import include
 
 urlpatterns = [
     path("",views.Login,name="Login"),
@@ -36,6 +37,11 @@ urlpatterns = [
     path("idea_list/",views.idea_list.as_view(),name="idea_list"),
     #アイデア削除用
     path("idea_delete/<int:id>/",views.idea_delete,name="idea_delete"),
+
+    #Googleログイン用
+    path('oauth/', include('social_django.urls', namespace='social')),
+    #Googleログイン時の追加アカウント情報を登録
+    path('add_user_info/',views.add_user_info.as_view(),name="add_user_info")
 ]
 
 #アカウント画像を表示する際にURLを反映する

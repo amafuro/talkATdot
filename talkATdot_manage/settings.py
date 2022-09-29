@@ -37,7 +37,7 @@ MEDIA_ROOT = MEDIA_DIR
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     #画像のリサイズに使う
     'sorl.thumbnail',
+    #Googleログインに使う
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #Googleログイン
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'talkATdot_manage.urls'
@@ -84,6 +88,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #Googleログイン
+                'social_django.context_processors.backends',  # これを追加
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -96,15 +103,15 @@ WSGI_APPLICATION = 'talkATdot_manage.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 """
 herokuだとsqlite3が動かない
-herokuで使えるpostgresql_psycopg2にする
+herokuで使えるpostgresql_psycopg2にする"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}"""
+}
 
-""""""
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -115,7 +122,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -169,3 +176,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #データベースをsqlite3からpostgresqlに変更する
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
+
+#以下googleログインに必要
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'add_user_info'
+

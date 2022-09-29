@@ -549,3 +549,45 @@ def idea_delete(request,id):
         raise Http404
     return HttpResponseRedirect(reverse('idea_list'))
 
+#Googleログイン用
+class add_user_info(TemplateView):
+    def __init__(self):
+        self.params = {
+            'AccountExists': False,
+            "AccountCreate": False,
+            "add_account_form": AddAccountForm(),
+        }
+
+    # Get処理
+    def get(self, request):
+        self.params["add_account_form"] = AddAccountForm()
+        self.params["AccountCreate"] = False
+        if models.Account.objects.filter(user=self.request.user).exists() == True:
+            return HttpResponseRedirect(reverse("same_users_all"))
+        else:
+            self.params["AccountExists"] = False
+        return render(request, "HTML/add_user_info.html", context=self.params)
+
+    # Post処理
+    def post(self, request):
+        #self.params["account_form"] = AccountForm(data=request.POST)
+        self.params["add_account_form"] = AddAccountForm(data=request.POST)
+        # フォーム入力の有効検証
+        if self.params["add_account_form"].is_valid():
+            # 追加情報
+            # 操作のため、コミットなし
+            add_account = self.params["add_account_form"].save(commit=False)
+            # AccountForm & AddAccountForm 1vs1 紐付け
+            add_account.user = self.request.user
+
+        # 画像アップロード有無検証
+        if 'account_image' in request.FILES:
+            add_account.account_image = request.FILES['account_image']
+
+        # モデル保存
+        add_account.save()
+
+        # アカウント作成情報更新
+        self.params["AccountCreate"] = True
+
+        return HttpResponseRedirect(reverse("same_users_all"))
